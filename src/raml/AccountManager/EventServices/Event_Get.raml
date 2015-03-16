@@ -1,0 +1,40 @@
+#%RAML 0.8
+title: Event Get Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts/{account_key}/campaigns/{campaign_key}/events
+/Get:
+  description: This section will deals about how to get a particular event belongs to an user.    
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key: 
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+      body:
+       application/json:
+        example: |
+              curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts/1/events/8?token=ab462786-80e2-4680-89c0-e360a1406004"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "eventList": [
+                      {
+                          "campaignKey": 1,
+                          "id": 8,
+                          "accountKey": 1,
+                          "customVariables": [],
+                          "createdDate": "01/13/2014",
+                          "modifiedDate": "01/13/2014",
+                          "createdBy": "SUPER_AFSAR"
+                      }
+                  ]
+                }      
+          description: OK - The request has succeeded. 

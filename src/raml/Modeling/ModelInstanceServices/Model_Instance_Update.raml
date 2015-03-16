@@ -1,0 +1,40 @@
+#%RAML 0.8
+title: Model Instance Update Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/model_upload/{module_version}/accounts/{account_key}/models/{model_key}/instances/{modelInstanceVersion}  
+/Update:
+  description: This section deals about how to a update model Instance of the turbine system. Only the threshold values can be updated. The threshold names for the update must be the same as the existing names. An uploaded model instance can be updated as long as it has not yet been activated. Once activated the instance becomes immutable. Subsequent uploads/updates automatically result in the creation of a new instance with a new version. Each instance update must contain the full set of instance data. Each instance update must contain the full set of instance data except for the PMML. 
+  put:
+      description: PUT request, requires UPDATE privilege. Update_model_instance.json file used for updating is shown in the request example.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key:
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+        Model_key:
+          description: The model_key is the id of model.
+          required: true
+      body:       
+        application/json:
+         example: |
+            curl -v -X PUT -H "Accept: application/json" -H "Content-Type: application/json" -d @update_model_instance.json "http://localhost:8080/modules/model_upload/1.0.0/accounts/1/models/a8307628-8648-446d-9342-66f626272d38/instances/1?token=7b7418c4-382a-456f-9c12-ff5e6cf7faf2"  
+            
+              update_model_instance.json
+        
+              {"thresholds":[{"name":"threshold1","value":0.6}]}        
+           
+      responses:
+        200:
+          body:
+            application/json:
+          description: OK - The request has succeeded
+        401:
+          description: Unauthorized request
+        404: 
+          description: Resource not found
+  
+

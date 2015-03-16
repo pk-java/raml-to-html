@@ -1,0 +1,118 @@
+#%RAML 0.8
+title: Advertiser List Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts/{account_key}/advertisers
+/List:
+  description: This section will deals with example about how to get the list of Advertiser belongs to user and list of advertisers with descending order on advertiser name.
+  
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+      body:
+       application/json:
+        example: |
+            To get list of Advertisers:
+              
+              curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts/303/advertisers?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0"
+              
+            To get list of Advertisers with descending order on advertiser “name”.
+            
+            curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts/303/advertisers?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0&orderByColumn=name&orderBy=desc&filterBy=advertiser_status:A&searchBy=advertiser_name:dell&statistcs=true"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                List of Advertisers:
+                
+                {
+                  "advertisers": [
+                      {
+                          "id": "6",
+                          "notes": "note",
+                          "externalAdvertiserKey": "303",
+                          "accountKey": "5",
+                          "name": "adv_name12",
+                          "agencyName": "MEC",
+                          "agencyKey": "3",
+                          "status": "A",
+                          "createdDate": "12/31/2013",
+                          "modifiedDate": "01/04/2014",
+                          "createdBy": "SUPER_SOURATN",
+                          "modifiedBy": "SUPER_DINESH"
+                      },
+                      {
+                          "id": "43",
+                          "notes": "dsdsd",
+                          "externalAdvertiserKey": "70709778",
+                          "accountKey": "5",
+                          "name": "sd",
+                          "agencyName": "MindShare",
+                          "agencyKey": "4",
+                          "status": "A",
+                          "createdDate": "12/31/2013",
+                          "createdBy": "SUPER_DINESH"
+                      },
+                      {
+                          "id": "59",
+                          "notes": "test",
+                          "accountKey": "5",
+                          "name": "tets_advertiser_1",
+                          "agencyName": "Mediacom",
+                          "agencyKey": "2",
+                          "status": "A",
+                          "createdDate": "01/02/2014",
+                          "createdBy": "SUPER_SOURATN"
+                      } 
+                  ],
+                  "totalRows": 8
+                } 
+                
+                List of Advertisers with descending order on advertiser “name”.
+                
+                {
+                    "advertisers": [
+                        {
+                            "notes": "Dell North America advertiser 78",
+                            "externalAdvertiserKey": "7070778",
+                            "agencyName": "MEC",
+                            "agencyKey": 3,
+                            "id": 4,
+                            "name": "Dell12355",
+                            "accountKey": 1,
+                            "status": "A",
+                            "statistics": {
+                                "campaigns": 1,
+                                "activities": 0
+                            },
+                            "createdDate": "01/08/2014",
+                            "modifiedDate": "01/10/2014",
+                            "createdBy": "SUPER_AFSAR",
+                            "modifiedBy": "ALL"
+                        },
+                        {
+                            "notes": "Dell North America advertiser 78",
+                            "externalAdvertiserKey": "70709778",
+                            "agencyName": "Maxus",
+                            "agencyKey": 1,
+                            "id": 1,
+                            "name": "Dell",
+                            "accountKey": 1,
+                            "status": "A",
+                            "statistics": {
+                                "campaigns": 8,
+                                "activities": 7
+                            },
+                            "createdDate": "01/07/2014",
+                            "modifiedDate": "01/11/2014",
+                            "createdBy": "ALL",
+                            "modifiedBy": "ALL"
+                        }
+                    ],
+                    "totalRows": 2
+                }
+          description: OK - The request has succeeded. 

@@ -1,0 +1,124 @@
+#%RAML 0.8
+title: Account List Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts
+/List:
+  description: This section will deals with example about how to get the list of accounts belongs to user and list of accounts with descending order on account name. 
+  
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+      body:
+       application/json:
+        example: |
+              To get list of accounts:
+               
+              curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0"
+              
+              To get list of accounts with descending order on account name.
+              
+              curl  -H "Accept: application/json" curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0&orderByColumn=name&orderBy=desc"
+              
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                List of accounts:
+                
+                {
+                  "accounts" : [ {
+                    "createdDate" : "05/08/2014",
+                    "createdBy" : "sucheta_tempuser",
+                    "notes" : "This is note:: Account for temp user",
+                    "timeZoneKey" : 3,
+                    "timeZoneName" : "America/Costa_Rica",
+                    "id" : 19,
+                    "name" : "Account for AFSAR temp user",
+                    "domain" : "pd2tagr1us2-qa1.dc.ash.247realmedia.com",
+                    "countryCode" : "US",
+                    "status" : "A"
+                  }, {
+                    "createdDate" : "04/11/2014",
+                    "createdBy" : "sucheta_1",
+                    "notes" : "This is note:: Account for Sucheta_1",
+                    "timeZoneKey" : 1,
+                    "timeZoneName" : "US/Eastern",
+                    "id" : 12,
+                    "name" : "Account for Sucheta123",
+                    "domain" : "pd2tagr1us2-qa1.dc.ash.247realmedia.com",
+                    "countryCode" : "US",
+                    "status" : "A"
+                  }, {
+                    "createdDate" : "04/10/2014",
+                    "createdBy" : "sucheta_1",
+                    "notes" : "This is note:: Account for Sucheta_1",
+                    "timeZoneKey" : 1,
+                    "timeZoneName" : "US/Eastern",
+                    "id" : 6,
+                    "name" : "Account for Sucheta_1",
+                    "domain" : "pd2tagr1us2-qa1.dc.ash.247realmedia.com",
+                    "countryCode" : "US",
+                    "status" : "A"
+                  }, {
+                    "createdDate" : "04/10/2014",
+                    "createdBy" : "sucheta_1",
+                    "notes" : "This is note:: Account for Sucheta_1",
+                    "timeZoneKey" : 1,
+                    "timeZoneName" : "US/Eastern",
+                    "id" : 10,
+                    "name" : "Account for Sucheta_1_2",
+                    "domain" : "pd2tagr1us2-qa1.dc.ash.247realmedia.com",
+                    "countryCode" : "US",
+                    "status" : "A"
+                  }, {
+                    "createdDate" : "05/08/2014",
+                    "createdBy" : "sucheta_tempuser",
+                    "notes" : "This is note:: Account for temp user",
+                    "timeZoneKey" : 1,
+                    "timeZoneName" : "US/Eastern",
+                    "id" : 17,
+                    "name" : "Account for temp user",
+                    "domain" : "pd2tagr1us2-qa1.dc.ash.247realmedia.com",
+                    "countryCode" : "US",
+                    "status" : "A"
+                  } ],
+                “totalRows” : 35
+                }
+                
+                List of accounts with descending order on account name:
+                
+                  {
+                  "accounts": [
+                      {
+                          "id": "14",
+                          "name": "afsar_1",
+                          "notes": "Test Account Note",
+                          "domain": "abc.com",
+                          "status": "A",
+                          "countryCode": "US",
+                          "timeZoneKey": 1,
+                          "timeZoneName": "US/Eastern",
+                          "createdDate": "01/08/2014",
+                          "createdBy": "SUPER_SOURATN"
+                      },
+                      {
+                          "id": "12",
+                          "name": "Xaxis South America",
+                          "notes": "Test Account Note",
+                          "domain": "abc.com",
+                          "status": "A",
+                          "countryCode": "US",
+                          "timeZoneKey": 2,
+                          "timeZoneName": "America/Buenos_Aires",
+                          "createdDate": "01/06/2014",
+                          "createdBy": "SUPER_SOURATN"
+                      }
+                  ],
+                  "totalRows": 7
+                }
+          description: OK - The request has succeeded. 

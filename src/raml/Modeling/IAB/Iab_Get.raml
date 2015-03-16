@@ -1,0 +1,34 @@
+#%RAML 0.8
+title: Iab's Get Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/model_upload/{module_version}/iabs/{iab_key}
+/Get:
+  description: This section will deals about how to get a particular Iab belongs to a user. Using this service, we can get specific Iab Service.
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        iab_key:
+          description: The iab_key is the id of iab.
+          required: true
+          type: integer
+      body:
+       application/json:
+        example: |
+              curl -v -H "Accept: application/json" "http://localhost:8080/modules/model_upload/1.0.0/iabs/5?token=5874e574-cd9f-403b-8283-51e94ced5eb1"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                  {
+                    "id" : 2,
+                    "category" : "Technology & Computing",
+                    "subCategory" : "Computer Networking",
+                    "segmentName" : "Computer_Networking"
+                  }
+      
+          description: OK - The request has succeeded. 

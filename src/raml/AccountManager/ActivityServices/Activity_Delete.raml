@@ -1,0 +1,32 @@
+#%RAML 0.8
+title: Activity Delete Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts/{account_key}/activities/{activity_key}
+/Delete:
+  description: This section will deals about how to delete an activity of the turbine system. An inactive activity can be deleted. An active activity cannot be deleted.
+  
+  delete:
+      description: DELETE request, requires DELETE privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key:
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+      body:
+       application/json:
+        example: |
+             curl  -X DELETE -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/ accounts/1/advertisers/1/activities/62?token=9dd88e89-8071-41a7-8fad-3b00f57a96a0"
+      responses:
+        200:
+          description: OK - The request has succeeded
+        401:
+          description: Unauthorized request
+        404:
+          description: Resource not found 
+  
+ 
+  

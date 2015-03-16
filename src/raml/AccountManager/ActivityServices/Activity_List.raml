@@ -1,0 +1,115 @@
+#%RAML 0.8
+title: Activity List Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts/{account_key}/activities
+/List:
+  description: This section will deals with example about how to get the list of activity belongs to user. Using List Service we can get the list of Activity Services.
+  
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+      body:
+       application/json:
+        example: |
+            To get List of all the activities:
+              
+              curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/ accounts/1/activities?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0"
+              
+              To get list of all the activities with descending order on activity “name”.
+              
+              curl  -H "Accept: application/json" curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/ accounts/1/activities?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0 &orderByColumn=name&orderBy=desc"
+            
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                List of all the activities:
+                
+                {
+                  "activityList": [
+                      {
+                          "description": "asdasdsd",
+                          "advertiserKey": 0,
+                          "activityType": "A",
+                          "dataSupplier": "sfsdf",
+                          "id": 35,
+                          "name": "adddaasd",
+                          "accountKey": 1,
+                          "status": "A",
+                          "customVariables": [],
+                          "createdDate": "01/11/2014",
+                          "modifiedDate": "01/13/2014",
+                          "createdBy": "SUPER_USER",
+                          "modifiedBy": "SUPER_PRATHAMESH"
+                      },
+                      {
+                          "description": "sfsf",
+                          "advertiserKey": 0,
+                          "activityType": "A",
+                          "dataSupplier": "sfsf",
+                          "id": 19,
+                          "name": "adsadf",
+                          "accountKey": 1,
+                          "status": "D",
+                          "customVariables": [],
+                          "createdDate": "01/10/2014",
+                          "createdBy": "SUPER_PRATHAMESH"
+                      },
+                      {
+                          "description": "fsdgfdg",
+                          "advertiserKey": 0,
+                          "activityType": "A",
+                          "dataSupplier": "fdf",
+                          "id": 46,
+                          "name": "adsaf",
+                          "accountKey": 1,
+                          "status": "A",
+                          "customVariables": [],
+                          "createdDate": "01/13/2014",
+                          "createdBy": "SUPER_PRATHAMESH"
+                      }
+                  ],
+                  "totalRows": 38
+                }     
+                
+                List of all the activities with descending order on activity “name”. 
+                
+                {
+                  "activityList": [
+                      {
+                          "description": "fdgf",
+                          "advertiserKey": 0,
+                          "activityType": "A",
+                          "dataSupplier": "fetretr",
+                          "id": 25,
+                          "name": "wer",
+                          "accountKey": 1,
+                          "status": "A",
+                          "customVariables": [],
+                          "createdDate": "01/10/2014",
+                          "createdBy": "SUPER_PRATHAMESH"
+                      },
+                      {
+                          "description": "fdsg",
+                          "advertiserKey": 0,
+                          "activityType": "A",
+                          "dataSupplier": "sfdgf",
+                          "id": 53,
+                          "name": "testing",
+                          "accountKey": 1,
+                          "status": "A",
+                          "customVariables": [],
+                          "createdDate": "01/13/2014",
+                          "modifiedDate": "01/13/2014",
+                          "createdBy": "SUPER_PRATHAMESH",
+                          "modifiedBy": "SUPER_PRATHAMESH"
+                      }
+                  ],
+                  "totalRows": 37
+                }        
+          description: OK - The request has succeeded. 

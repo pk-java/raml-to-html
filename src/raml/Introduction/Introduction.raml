@@ -1,0 +1,38 @@
+#%RAML 0.8
+title: Introduction
+version: 1
+baseUri: http://localhost:8080/registry/model_upload/{module_version}
+documentation:
+ - title: Introduction
+   content: |
+     This document deals about how to use the Turbine API services, document also provides the example to call different services along with their request and response. This document only deals with request/response in JSON format. 
+     Every request must have **Accept** parameter in the header, following table describes about the possible header parameters along with the values.
+     Each of the functions described below can be called via a REST API call. Results returned by the API are always coded in JSON. Timestamps have to be specified in UTC. The timestamp format is **yyyy-MM-DDTHH:MM**.
+     
+     In order to use rest API calls, we need to authenticate using Authentication Service to get access token and use that token in every curl call. The token will expire in 30 minutes. If we use expired token, we get an error **401 Unauthorized**. We can get the new token anytime when needed.
+       
+      **Header Parameters:**
+      
+     **Accept:** application/xml OR application/json
+     
+     **Content-Type:** application/xml OR application/json
+     
+     Accept: The Accept request-header field can be used to specify certain media types which are acceptable for the response.
+     Content-Type: A content type is a collection of settings and metadata that describe how an item created with that type is identified, and how it will behave within your system. A content type could apply to a document, a folder, or a variety other objects.
+     Except for Authentication Service the entire API request must necessarily send the **token** parameter in the query string with **valid token** received in the response after authentication.
+     The request to API services (except Authentication Service) without a valid token (as a query string parameter) will consider an invalid request and will ignore by the API.
+     Below table describe about the token query string parameter.
+
+     
+     **Query String Parameter:**
+     
+     **HTTP Method:** All(GET/POST/UPDATE/DELETE)
+     
+     **Parameter:** token
+     
+     **Type:** String
+     
+     **Rquired (in Query String):** Yes
+     
+      **USING CURL:**      
+     Note that the curl command line tool does not seem to support sending multi-part data with a PUT request. PUT request are used for updating models or instances. The REST API accommodates to this curl shortcoming by providing a request method override mechanism. When the **_method=PUT** request parameter is added to a (POST) request, the API will treat the request like a PUT request.

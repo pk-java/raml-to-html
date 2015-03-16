@@ -1,0 +1,119 @@
+#%RAML 0.8
+title: Campaign List Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts/{account_key}/advertisers/{advertiser_key}/campaigns
+/List:
+  description: This section will deals with example about how to get the list of Campaign belongs to user and list of campaign with descending order on campaign name belongs to the user.
+  
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+      body:
+       application/json:
+        example: |
+          To get List of campaigns:
+            
+              curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts/1/campaigns?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0"
+              
+            To get list of campaigns with descending order on campaign “name”.
+            
+            curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts/303/campaigns?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0&orderByColumn=name&orderBy=asc&filterBy=campaign_status:A&searchBy=campaign_name:dell"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                List of campaigns:
+                  
+                  {    "campaigns": [
+                      {
+                          "startDate": "01/02/2014",
+                          "endDate": "01/02/2014",
+                          "publisherKey": 0,
+                          "advertiserKey": 1,
+                          "advertiserName": "Dell2",
+                          "impressionCookieWindow": 1,
+                          "clickCookieWindow": 2,
+                          "mappings": [],
+                          "id": 14,
+                          "name": "1",
+                          "accountKey": 1,
+                          "status": "A",
+                          "deliveryPlatform": "null",
+                          "agencyName": "Maxus",
+                          "agencyKey": 1,
+                          "createdDate": "01/17/2014",
+                          "createdBy": "souratn"
+                      },
+                      {
+                          "startDate": "01/02/2014",
+                          "endDate": "01/02/2014",
+                          "publisherKey": 0,
+                          "advertiserKey": 1,
+                          "advertiserName": "Dell2",
+                          "impressionCookieWindow": 1,
+                          "clickCookieWindow": 2,
+                          "mappings": [],
+                          "id": 17,
+                          "name": "1",
+                          "accountKey": 1,
+                          "status": "A",
+                          "deliveryPlatform": "null",
+                          "agencyName": "Maxus",
+                          "agencyKey": 1,
+                          "createdDate": "01/17/2014",
+                          "createdBy": "souratn"
+                      }
+                  ],
+                  "totalRows": 9
+                  }
+                List of campaigns with descending order on campaign “name”.
+                
+                {
+                  "campaigns": [
+                      {
+                          "startDate": "01/02/2014",
+                          "endDate": "01/02/2014",
+                          "publisherKey": 0,
+                          "advertiserKey": 1,
+                          "advertiserName": "Dell2",
+                          "impressionCookieWindow": 1,
+                          "clickCookieWindow": 2,
+                          "mappings": [],
+                          "id": 14,
+                          "name": "1",
+                          "accountKey": 1,
+                          "status": "A",
+                          "deliveryPlatform": "null",
+                          "agencyName": "Maxus",
+                          "agencyKey": 1,
+                          "createdDate": "01/17/2014",
+                          "createdBy": "souratn"
+                      },
+                      {
+                          "startDate": "01/02/2014",
+                          "endDate": "01/02/2014",
+                          "publisherKey": 0,
+                          "advertiserKey": 1,
+                          "advertiserName": "Dell2",
+                          "impressionCookieWindow": 1,
+                          "clickCookieWindow": 2,
+                          "mappings": [],
+                          "id": 17,
+                          "name": "1",
+                          "accountKey": 1,
+                          "status": "A",
+                          "deliveryPlatform": "null",
+                          "agencyName": "Maxus",
+                          "agencyKey": 1,
+                          "createdDate": "01/17/2014",
+                          "createdBy": "souratn"
+                      }
+                  ],
+                  "totalRows": 9
+                }
+          description: OK - The request has succeeded. 

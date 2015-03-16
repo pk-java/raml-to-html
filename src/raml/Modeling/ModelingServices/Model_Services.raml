@@ -1,0 +1,55 @@
+#%RAML 0.8
+title: Modeling Services
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/model_upload/{module_version}/accounts/{account_key}/models/{model_key}
+documentation:
+ - title: Modeling Services Introduction
+   content: |
+    Models essentially consist of model metadata and a list of model instances. Each instance has a unique version. There cannot be more than one active model instance for each model. 
+     Models are maintained by the customer, model instances are maintained by the data miners. The data mining team is not interested in a UI but only in a REST API for maintaining model instances. For maintaining models and activating instances a UI will be provided for the customer. The REST API provides methods for dealing with models and instances.
+     
+     There are 5 types of Models. Demographic, Feedback, Interest, Predictive.
+     
+     **1)Demographic Model:**  
+     
+     When initially creating a model the list of model instances is empty. Model instances will be added separately. The request body contains the complete model data. 
+     
+     The permitted VAM attribute types are **click**, **impressions** and **timeslot**. The ID of the new model is returned in the Location response header. An error is reported when the valid to date is not after the valid from date. 
+     
+     If the valid from date is missing the current date is used as a default. If the valid to date is missing the current date + 1 year is used as a default. An error is reported when the end date is not after the start date. The relative model reach must be in the interval [0,1]. Only model configuration (model type) can be specified, but not several.  
+     
+     **2)Feedback Model:**
+     
+     The goal of this model type is to identify visitors who share similar behaviour patterns with visitors for whom we have observed a particular outcome following campaign exposure.  It is effectively a special case of the predictive targeting model in which the audience is defined as visitors exposed to a particular campaign. The input includes selection of a specific Campaign as dependent variable. 
+     
+     **3)Interest Model:**
+     
+     The goal of this model type is to identify visitors interested in specific topics.  The input for the model is single Interest topic from the Interest taxonomy.
+     
+     **4)Predictive Model:**
+     
+      The goal of this model type is to identify visitors who share similar behaviour patterns with visitors for whom we have observed a particular outcome, e.g. viewing the merchants product. The input for the model is one or more Dependent variables joined by AND/OR operators. The Dependent variables can be Advertiser-specific or Account-wide (e.g. purchase intent data from third parties, like user has been researching for a holiday), which determines the model usage scope. 
+        
+      **5)Segment Level Model:**
+      
+       It provides ability to create Model on more granular level.
+       Currently audiences are defined by creating models, hence based on **predicted/modeled** attributes. There is very little capability to control segment membership based on observed attributes (like activates, campaign exposure/interaction etc.) The Segment builder seeks to address this by providing the ability to define segments based on flexible configurable business rules.Ability to create flexible and complex segments better reflecting the type of audience required for the campaign.
+     
+     **Model Name Restrictions:**
+     
+      The maximum length of a model name is 64 characters. The model name may only contain alphanumeric characters and must start with a letter. Whitespace are not allowed. This is a regex for a valid model name: **^[a-zA-Z][a-zA-Z0-9]*$**.
+     
+     Modeling Service allows the user to get, create, update,  delete the model. Model is a custom criteria that we specify.
+    Model service deals with operations related to Model, like add/update/delete/get/list based on the privilege level user.
+    Following operation can be done on the model service.
+    
+    **List ( Listing down all the model associated with the user)**    
+    
+    **Get (To list down a particular model by passing the model key)**    
+    
+    **Add (Using this operation user can add a new model to the system)** 
+                              
+    **Update (Using this operation user can update a particular model)**    
+    
+    **Delete (Using this operation user can delete a particular model)**

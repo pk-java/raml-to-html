@@ -1,0 +1,9 @@
+#%RAML 0.8
+title: Automatic Model Generation Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/model_upload/{module_version}/accounts/{account_key}/models/{model_key}?token=token&action=generate
+documentation:
+ - title: Automatic Model Generation Services
+   content: |
+    This service is used to generate new active instance for the specified model.

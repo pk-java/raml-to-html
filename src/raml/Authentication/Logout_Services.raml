@@ -1,0 +1,67 @@
+#%RAML 0.8
+title: Logout Services
+version: V1
+#baseUri: 
+baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}/{system}/logout?token={token}
+/LogoutServices:
+  get:
+    queryParameters: 
+     token:
+      description: Token
+      required: true
+    body:
+     application/json:
+      example: |
+        {"http://127.0.0.1:8080/modules/account_manager/1.0.0/ system/logout?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0"
+        }
+     application/xml:
+      example: |
+        {"http://127.0.0.1:8080/modules/account_manager/1.0.0/ system/logout?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0"
+        }
+    responses:
+     200:
+      description: OK
+  post: 
+/AuthorizationServices:
+  get:
+    queryParameters: 
+     authUserName:
+      description: username of the logged-in user.
+      required: true
+     entity:
+      description: name of entity on which authorization would be done. Entity Values{model, account, advertiser, publisher, campaign, activity, report, event}
+      required: true
+     previlege: 
+      description: name of action, user wants to perform on the given entity. Previlege Values{all, read, add, update, delete, activate, deactivate, audit}
+      required: true
+     accountKey:
+      description: account key associated with the entity.
+      type: integer
+      required: false
+    body: 
+              application/json:
+                example: |
+                 {    "http://127.0.0.1:8080/modules/authentication_manager_internal/1.0.30/interal/authorization?token=xrf83n3nfkeedeXswer&authUserName=testUser&entity=ADVERTISER&privilege=READ&accountKey=2"
+                 }
+    responses:
+      200:
+       description: OK
+       body:
+              application/json:
+                example: |
+                 {    " hasPrivilege” : “true”
+                 }
+      400:
+       description: Bad request.
+      201:
+       description: Created.
+      202:
+       description: Accepted(Request accepted, and queued for execution)
+      401:
+       description: Authentication failure.
+      403:
+       description: Forbidden.
+      404: 
+       description: Resource not found.
+      
+  post: 

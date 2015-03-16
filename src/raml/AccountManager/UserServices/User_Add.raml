@@ -1,0 +1,88 @@
+#%RAML 0.8
+title: User Add Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/users
+documentation:
+ - title: Add
+   content: |
+     There are 3 types of Users. Regular user, Account user, Super user.
+     
+     **Regular User:**  
+     
+     
+     **Account User:**
+     
+     **Super User:**
+     
+/Add:
+  description: This section will deals about the example to add a new user to the turbine system.
+  post:
+      description: POST request, requires ADD privilege. user_json.json file used to create a user is shown in the request example.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        userName:
+          description: The user name is used for authenticating the user. (used to login)
+          required: true
+        password:
+          description: The password is used for authenticating the user. (used to login)
+        userTypeName:
+          description: It is the role of the user. The values can be SUPERUSER, REGUSER, ACCOUNTUSER. Only super user can create the REGUSER/ACCOUNTUSER and AccountUser can create the REGUSER
+          required: true
+        account_key: 
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+        firstName:
+          description: The first name of the user.
+          required: false
+        lastName:
+          description: The last name of the user.
+          required: false
+        title:
+          description: The title of the user.
+          required: false
+        phone:
+          description: The user contact number.
+          required: false
+        fax:
+          description: The user fax number.
+          required: false
+        email:
+          description: The user email id.
+          required: false
+        notes:
+          description: The description about the user can be given in notes.
+          required: false
+      body:       
+        application/json:
+         example: |
+            curl  -X POST -H "Accept: application/json" -H "Content-Type: application/json" -d @user_json.txt "http://127.0.0.1:8080/modules/account_manager/1.0.0/users?token=12472945-d02d-4804-bff5-67c2b597a998"
+            
+              user_json.txt
+                  {
+                      "userName": "TEST_REGULAR",
+                "password":"password",
+                "userType": "REGUSER",
+                      "firstName": "SOURATN",
+                      "lastName": "JAIN",
+                      "title": "Mr.",
+                      "email": "sjain@gmail.com",
+                      "phone": "9876543210",
+                      "fax": "98765432",
+                      "notes": "test_user",
+                      "timezoneKey":2,
+                      "accountList": "4"
+             }    
+      responses:
+        200:
+          body:
+            application/json:
+          description: OK - The request has succeeded
+        401:
+          description: Unauthorized request
+        404: 
+          description: Resource not found
+  

@@ -1,0 +1,29 @@
+#%RAML 0.8
+title: Reporting
+version: 1
+baseUri: http://localhost:8080/registry/Reporting/{module_version}
+documentation:
+ - title: Reporting Introduction
+   content: |          
+     **Report:** Report is a combination of a template and a filter. It is the data presented to the end user.
+     
+     **Reporting:** Providing reports based on analytical queries. Derived from the structure and terminology of OLAP systems the API is structured in Cubes, Metrics and Dimensions that are mapped to a relational DB schema. 
+     
+     A cube is always based on a so-called fact table like the VCM or the VFM. It offers a set of metrics like "VisitorCount", "EventCount", ... and a set of dimensions that allow to drill down the counts according to certain grouping options. For instance, the OccurenceDay, the ActivityId or the visitor**'**s browser Name.General reporting features are sorting, filtering.
+     
+     **Cube:** Cube is a multidimensional database where data can be retrieved using dimensions.
+     
+     **Dimensions:** A Dimension is a structural attribute of a Cube that is a list of related names**-**all of which belong to a similar category in the user**'**s perception of a data. A Dimension acts an index for identifying values within a multidimensional array and offers a very concise, intuitive way of organizing and selecting data for retrieval, exploration and analysis. Dimensions are the business parameters normally seen in the rows and columns of a report.
+    
+     **Metrics:** Metric is a business value. It allow analysis of data using dimensions. It not only gives the exact report but also analyses and calculates average values, %, etc based on dimensions.
+    
+      **Filter:** Filter specifies the conditions that the data must meet in order to be included in the report results.
+      
+      Reporting consists of 5 Services.
+        
+      **1) Cube Manager Services**
+        
+      **2) Member Manager Services**
+        
+      **3) Query Manager Service**
+        

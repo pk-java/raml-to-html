@@ -1,0 +1,83 @@
+#%RAML 0.8
+title: Iab's List Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/model_upload/{module_version}/iabs
+/List:
+  description: This section will deals with example about how to get the list of Iab belongs to user. Using List Service we can get the list of IAB Categories.
+  
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+      body:
+       application/json:
+        example: |
+              curl -v -H "Accept: application/json" "http://localhost:8080/modules/model_upload/1.0.0/iabs?token=5874e574-cd9f-403b-8283-51e94ced5eb1"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "iabs":[
+                        {
+                        "id" : 1,
+                        "category" : "Technology & Computing",
+                        "subCategory" : "Computer Certification",
+                        "segmentName" : "Computer_Certification"
+                     }, {
+                        "id" : 2,
+                        "category" : "Technology & Computing",
+                        "subCategory" : "Computer Networking",
+                        "segmentName" : "Computer_Networking"
+                     }, {
+                        "id" : 3,
+                        "category" : "Technology & Computing",
+                        "subCategory" : "Computer Peripherals",
+                        "segmentName" : "Computer_Peripherals"
+                     }, {
+                        "id" : 4,
+                        "category" : "Technology & Computing",
+                        "subCategory" : "Computer Reviews",
+                        "segmentName" : "Computer_Reviews"
+                     }, {
+                        "id" : 5,
+                        "category" : "Technology & Computing",
+                        "subCategory" : "Data Centers",
+                        "segmentName" : "Data_Centers"
+                     }, {
+                        "id" : 6,
+                        "category" : "Technology & Computing",
+                        "subCategory" : "Databases",
+                        "segmentName" : "Databases"
+                     }, {
+                        "id" : 7,
+                        "category" : "Technology & Computing",
+                        "subCategory" : "Desktop Publishing",
+                        "segmentName" : "Desktop_Publishing"
+                     }, {
+                        "id" : 8,
+                        "category" : "Technology & Computing",
+                        "subCategory" : "Desktop Video",
+                        "segmentName" : "Desktop_Video"
+                     }, {
+                        "id" : 9,
+                        "category" : "Technology & Computing",
+                        "subCategory" : "Email",
+                        "segmentName" : "Email"
+                     }, {
+                        "id" : 10,
+                        "category" : "Technology & Computing",
+                        "subCategory" : "Graphics Software",
+                        "segmentName" : "Graphics_Software"
+                     }
+                  ]
+                  }              
+          description: OK - The request has succeeded. 
+        401:
+          description: Unauthorized request.
+        404:
+          description: Resource not found.

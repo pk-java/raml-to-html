@@ -1,0 +1,311 @@
+#%RAML 0.8
+title: Query Manager Execute Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/reporting/{module_version}/accounts/{account_Id}/?action=query
+/List:
+  description: This section will deals with example about how to get report based on generic query.  
+  put:
+      description: EXEC service requires READ privilege. report_json.json file used for generating this report is shown in the request example.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key:
+          description: It is the Id of an account.
+          required: true
+          type: integer
+        action:
+          description: The type of action that would occur.
+          required: true
+        pageNumber:
+          description: This is page number.
+          required: false
+          type: integer
+        rowsPerPage:
+          description: This is number os rows per page.
+          required: false
+          type: integer
+      body:
+       application/json:
+        example: |
+              curl -X POST -H "Accept: application/json" -H "Content-Type: application/json" -d @report_json.txt "http://turbjb01.realads.com:8080/modules/reporting/2.0.0/accounts/1?action=query&token=0dfdfad2-7c5b-4727-a89a-752617f3fb28"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "genericQueryResults" : {
+                    "getAdvertiserInfo" : {
+                      "fields" : [ {
+                        "name" : "AdvertiserId",
+                        "type" : "INTEGER"
+                      }, {
+                        "name" : "AdvertiserName",
+                        "type" : "STRING"
+                      }, {
+                        "name" : "CreationDay",
+                        "type" : "DATE"
+                      }, {
+                        "name" : "Status",
+                        "type" : "CHAR"
+                      }, {
+                        "name" : "ModelCount",
+                        "type" : "INTEGER"
+                      }, {
+                        "name" : "ModelType",
+                        "type" : "STRING"
+                      } ],
+                      "records" : [ ],
+                      "paging" : {
+                        "pageNumber" : 1,
+                        "rowsPerPage" : 1000,
+                        "totalRows" : 0
+                      }
+                    }
+                  },
+                  "namedQueryResults" : {
+                    "getTopInterestAudienceSize" : {
+                      "fields" : [ {
+                        "name" : "iabmapkey",
+                        "type" : "INTEGER"
+                      }, {
+                        "name" : "total_visitors",
+                        "type" : "INTEGER"
+                      }, {
+                        "name" : "week_on_week_p_change",
+                        "type" : "FLOAT"
+                      }, {
+                        "name" : "parent_iabmapkey",
+                        "type" : "INTEGER"
+                      }, {
+                        "name" : "category_name",
+                        "type" : "STRING"
+                      } ],
+                      "records" : [ ],
+                      "paging" : {
+                        "pageNumber" : 1,
+                        "rowsPerPage" : 10,
+                        "totalRows" : 0
+                      }
+                    },
+                    "getAudienceSizeTrend" : {
+                      "fields" : [ {
+                        "name" : "time_stamp",
+                        "type" : "DATE"
+                      }, {
+                        "name" : "total_visitors",
+                        "type" : "INTEGER"
+                      } ],
+                      "records" : [ ]
+                    },
+                    "getTopDemographicAudienceSize" : {
+                      "fields" : [ {
+                        "name" : "aggregation_day",
+                        "type" : "DATE"
+                      }, {
+                        "name" : "model_type",
+                        "type" : "STRING"
+                      }, {
+                        "name" : "model_id",
+                        "type" : "STRING"
+                      }, {
+                        "name" : "model_name",
+                        "type" : "STRING"
+                      }, {
+                        "name" : "segment",
+                        "type" : "STRING"
+                      }, {
+                        "name" : "creation_date",
+                        "type" : "DATE"
+                      }, {
+                        "name" : "total_visitors",
+                        "type" : "INTEGER"
+                      }, {
+                        "name" : "week_on_week_p_change",
+                        "type" : "FLOAT"
+                      } ],
+                      "records" : [ ],
+                      "paging" : {
+                        "pageNumber" : 1,
+                        "rowsPerPage" : 10,
+                        "totalRows" : 0
+                      }
+                    },
+                    "getTopLookaLikeAudienceSize" : {
+                      "fields" : [ {
+                        "name" : "advertiserkey",
+                        "type" : "INTEGER"
+                      }, {
+                        "name" : "aggregation_day",
+                        "type" : "DATE"
+                      }, {
+                        "name" : "model_type",
+                        "type" : "CHAR"
+                      }, {
+                        "name" : "model_id",
+                        "type" : "STRING"
+                      }, {
+                        "name" : "model_name",
+                        "type" : "STRING"
+                      }, {
+                        "name" : "segment",
+                        "type" : "STRING"
+                      }, {
+                        "name" : "created_date",
+                        "type" : "DATE"
+                      }, {
+                        "name" : "total_visitors",
+                        "type" : "INTEGER"
+                      }, {
+                        "name" : "campaignkey",
+                        "type" : "INTEGER"
+                      }, {
+                        "name" : "week_on_week_p_change",
+                        "type" : "FLOAT"
+                      } ],
+                      "records" : [ ],
+                      "paging" : {
+                        "pageNumber" : 1,
+                        "rowsPerPage" : 10,
+                        "totalRows" : 0
+                      }
+                    }
+                  }
+                }
+
+                  report_json.json
+                    
+                      {
+                        "genericQueries": {
+                          "getAdvertiserInfo": {
+                            "pageNumber": 1,
+                            "rowsPerPage": 1000,
+                            "cubeName": "Models",
+                            "groupBy": true,
+                            "selections": [
+                              "AdvertiserId",
+                              "AdvertiserName",
+                              "CreationDay",
+                              "Status",
+                              "ModelCount",
+                              "ModelType"
+                            ],
+                            "orders": [
+                              {
+                                "selection": "AdvertiserId",
+                                "type": "DESC"
+                              },
+                              {
+                                "selection": "AdvertiserName",
+                                "type": "DESC"
+                              },
+                              {
+                                "selection": "CreationDay",
+                                "type": "DESC"
+                              },
+                              {
+                                "selection": "Status",
+                                "type": "DESC"
+                              },
+                              {
+                                "selection": "ModelCount",
+                                "type": "DESC"
+                              },
+                              {
+                                "selection": "ModelType",
+                                "type": "DESC"
+                              }
+                            ]
+                          }
+                        },
+                        "namedQueries": {
+                          "getAudienceSizeTrend": {
+                            "name": "audienceSizeTrend",
+                            "pageNumber": 1,
+                            "rowsPerPage": 1000,
+                            "params": [
+                              {
+                                "key": "aggregationDay",
+                                "value": "2014-04-16"
+                              },
+                              {
+                                "key": "modelId",
+                                "value": "x"
+                              },
+                              {
+                                "key": "numberOfDays",
+                                "value": 3
+                              }
+                            ]
+                          },
+                          "getTopLookaLikeAudienceSize": {
+                            "name": "topLookaLikeAudienceSize",
+                            "pageNumber": 1,
+                            "rowsPerPage": 1000,
+                            "params": [
+                              {
+                                "key": "aggregationDay",
+                                "value": "2014-04-27"
+                              },
+                              {
+                                "key": "modelScopeType",
+                                "value": "ALL"
+                              },
+                              {
+                                "key": "modelOrderType",
+                                "value": "AUDIENCE_SIZE"
+                              },
+                              {
+                                "key": "advertiserId",
+                                "value": "3"
+                              },
+                              {
+                                "key": "modelType",
+                                "value": "F"
+                              }
+                            ]
+                          },
+                          "getTopDemographicAudienceSize": {
+                            "name": "topDemographicAudienceSize",
+                            "pageNumber": 1,
+                            "rowsPerPage": 1000,
+                            "params": [
+                              {
+                                "key": "aggregationDay",
+                                "value": "2014-04-27"
+                              },
+                              {
+                                "key": "modelOrderType",
+                                "value": "AUDIENCE_SIZE"
+                              }
+                            ]
+                          },
+                          "getTopInterestAudienceSize": {
+                            "name": "topInterestAudienceSize",
+                            "pageNumber": 1,
+                            "rowsPerPage": 1000,
+                            "params": [
+                              {
+                                "key": "aggregationDay",
+                                "value": "2014-04-27"
+                              },
+                              {
+                                "key": "modelOrderType",
+                                "value": "AUDIENCE_SIZE"
+                              },
+                              {
+                                "key": "isActive",
+                                "value": "true"
+                              }
+                            ]
+                          }
+                        }
+                      }
+             
+          description: OK - The request has succeeded. 
+        401:
+          description: Unauthorized request.
+        404:
+          description: Resource not found.

@@ -1,0 +1,47 @@
+#%RAML 0.8
+title: Model Instance Get Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/model_upload/{module_version}/accounts/{account_key}/models/{model_key}/instances/{modelInstanceVersion}
+/Get:
+  description: This section will deals about how to get a particular model belongs to a user. Using this Service, we can get particular model Instance for a particular model. 
+
+  get:
+      description: GET request for a particular model instance version, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key:
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+        Model_key:
+          description: The model_key is the id of model.
+        modelInstanceVersion:
+          description: Model Instance Version.
+          type: integer
+      body:
+       application/json:
+        example: |
+           curl -k -L -X GET -H "Accept: application/json" -D -H "http://localhost:8080/modules/model_upload/1.0.0/accounts/1/models/a8307628-8648-446d-9342-66f626272d38/instances/1?token=00564b01-7830-41cf-b337-df505a5be4a3"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                 {
+                    "commonModelInstance" : {
+                      "version" : 1,
+                      "description" : "Instance description",
+                      "creationDate" : "2014-05-14T20:21Z",
+                      "lifeTime" : "2015-11-25T09:07Z",
+                      "modelDescription" : {
+                        "thresholds" : {
+                          "threshold1" : 0.5
+                        }
+                      }
+                    },
+                    "active" : false
+                  }
+          description: OK - The request has succeeded.

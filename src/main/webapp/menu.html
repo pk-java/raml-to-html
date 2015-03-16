@@ -1,0 +1,28 @@
+<html>
+
+<head>
+<title>HTML Frames - An Advanced Frame Layout</title>
+<script type="text/javascript">
+function hideSideDiv(){
+	frame = document.getElementById("contentFrame");
+	frame.contentDocument.getElementById("sidebar").style.display='none';
+}
+</script>
+</head>
+<frameset cols="25%,75%">
+<frame class="menu" name="menu" src="list.html" height="400" width="500" scrolling="yes" noresize>
+
+	<frame id="contentFrame" onload="javascript:hideSideDiv()" name="content" src="html/Introduction.html" marginheight="0" marginwidth="0" scrolling="auto" noresize>
+
+</frameset>
+<style>
+#sidebar {
+    display: none;
+    overflow: scroll;
+}
+#menu{
+	overflow: scroll;
+}
+</style>
+
+</html> 

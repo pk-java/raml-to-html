@@ -1,0 +1,41 @@
+#%RAML 0.8
+title: User Preference Get Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/users/{user_key}/userPrefs{pref_Id}
+/Get:
+  description: This section will deals about how to get a particular user preference belongs to an user.  
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key: 
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+      body:
+       application/json:
+        example: |
+              curl  -H "Accept: application/json" " http://127.0.0.1:8080/modules/account_manager/1.0.30/users/25/userPrefs/37?token=317ab0b8-f226-4a03-a44d-42ad6cf83e1a"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "accounts": [
+                      {
+                          "id": "12",
+                          "name": "Xaxis South America",
+                          "notes": "Test Account Note",
+                          "status": "A",
+                          "timeZoneKey": 2,
+                          "timeZoneName": "America/Buenos_Aires",
+                          "createdDate": "01/06/2014",
+                          "createdBy": "SUPER_SOURATN"
+                      }
+                  ]
+                }    
+          description: OK - The request has succeeded. 

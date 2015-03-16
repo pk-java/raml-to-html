@@ -1,0 +1,15 @@
+#%RAML 0.8
+title: Cube Manager Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/model_upload/{module_version}/accounts/{account_key}?action=query
+documentation:
+ - title:  Cube Manager Service
+   content: |
+    Cube Manager Services deal with operations to retrieve reports based on type of cube and cube names.It allows to slice the data to get relevant information out of data warehouse. 
+     
+     Following operation can be done on the Cube Manager Service.
+      
+      **List (Listing down all the cubes of an account)**
+      
+      **Get (To get a particular cube by passing cube name of an account)**

@@ -1,0 +1,14 @@
+#%RAML 0.8
+title: Member Manager Services
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/reporting/{module_version}/accounts/{account_key}/cubes/{cube_name}/deimensions/{dimension_name}/members
+documentation:
+ - title: Member Manager Services
+   content: |
+    Member Manager**'**s Service deals with operations to retrieve members of a dimension based on the privilege level user.
+     
+     Following operation can be done on the Member Manager Service.
+      
+      **List ( Listing down all the members of a dimension)**
+

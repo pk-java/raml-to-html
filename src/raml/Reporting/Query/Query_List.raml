@@ -1,0 +1,110 @@
+#%RAML 0.8
+title: Query Manager List Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/reporting/{module_version}/accounts
+/List:
+  description: This section will deals with example about how to get the list named queries.  
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key:
+          description: It is the Id of an account.
+          required: true
+          type: integer
+      body:
+       application/json:
+        example: |
+              curl -i -H "Accept: application/json" "http://turbjb01.realads.com:8080/modules/reporting/2.0.0/accounts?token=0dfdfad2-7c5b-4727-a89a-752617f3fb28"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                      [{
+                      "name" : "audienceSizeTrend",
+                      "params" : [ {
+                        "key" : "aggregationDay",
+                        "value" : "Date"
+                      }, {
+                        "key" : "modelId",
+                        "value" : "String"
+                      }, {
+                        "key" : "numberOfDays",
+                        "value" : "Integer"
+                      } ]
+                      }, {
+                      "name" : "dailyInterestReach",
+                      "params" : [ {
+                        "key" : "aggregationDay",
+                        "value" : "Date"
+                      } ]
+                      }, {
+                      "name" : "segmentReachPrediction",
+                      "params" : [ {
+                        "key" : "date",
+                        "value" : "Date"
+                      }, {
+                        "key" : "segment",
+                        "value" : "String"
+                      } ]
+                      }, {
+                      "name" : "topDemographicAudienceSize",
+                      "params" : [ {
+                        "key" : "aggregationDay",
+                        "value" : "Date"
+                      }, {
+                        "key" : "modelOrderType",
+                        "value" : "String"
+                      }, {
+                        "key" : "segmentNameFilter",
+                        "value" : "String"
+                      } ]
+                      }, {
+                      "name" : "topInterestAudienceSize",
+                      "params" : [ {
+                        "key" : "aggregationDay",
+                        "value" : "Date"
+                      }, {
+                        "key" : "categoryNameFilter",
+                        "value" : "String"
+                      }, {
+                        "key" : "isActive",
+                        "value" : "Boolean"
+                      }, {
+                        "key" : "modelOrderType",
+                        "value" : "String"
+                      } ]
+                      }, {
+                      "name" : "topLookaLikeAudienceSize",
+                      "params" : [ {
+                        "key" : "advertiserId",
+                        "value" : "Integer"
+                      }, {
+                        "key" : "aggregationDay",
+                        "value" : "Date"
+                      }, {
+                        "key" : "createdBy",
+                        "value" : "String"
+                      }, {
+                        "key" : "modelOrderType",
+                        "value" : "String"
+                      }, {
+                        "key" : "modelScopeType",
+                        "value" : "String"
+                      }, {
+                        "key" : "modelType",
+                        "value" : "String"
+                      }, {
+                        "key" : "segmentNameFilter",
+                        "value" : "String"
+                      } ]
+                      } ]              
+          description: OK - The request has succeeded. 
+        401:
+          description: Unauthorized request.
+        404:
+          description: Resource not found.

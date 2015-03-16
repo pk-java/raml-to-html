@@ -1,0 +1,147 @@
+#%RAML 0.8
+title: Modeling Services Add
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/model_upload/{module_version}/accounts/{account_key}/models
+/Add:
+  description:  This Service is used to create a model. The json in Demographic_model.json file, Feedback_model.json, Interest_model.json, Predictive_model.json, Segment_model.json used while creating the model is shown in request example. A parameter **export_prefix** in these json files will be used when exporting segments. This is an optional parameter, and if it is not provided during model creation, the default segment name will be used for the export.  
+  post:
+      description: POST request, requires ADD privilege.      
+      
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key:
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+          
+      body:
+       application/json:
+        example: |
+           Demographic Model:
+           
+           curl -v -X POST -H "Accept: application/json" -d @demographic_model.json -D -H "http://localhost:8080/modules/model_upload/1.0.30/accounts/1/models?token=8536efe0-5f33-4b01-8f1f-fc18a4cd3717" -H "Content-type: application/json"
+                       
+             demographic_model.json
+             {          
+            "name" : "Demographic4",
+            "export_prefix": "TRB_XYZ",
+            "description" : "Model description",
+            "validFrom" : "2013-11-25T09:07Z",
+            "validTo" : "2013-11-26T09:07Z",
+            "isActive" : true,
+            "modelType" : "DEMOGRAPHIC         
+             } 
+             
+            Feedback Model:
+                         
+            curl -v -X POST -H "Accept: application/json" -d @feedback_model.json -D -H "http://localhost:8080/modules/model_upload/1.0.0/accounts/1/models?token=9eee76a7-9a20-4b10-ad89-d5052b49f7a5" -H "Content-type: application/json"
+             
+              feedback_model.json
+            
+              {
+              "name": "Feedback3",
+              "export_prefix": "TRB_XYZ",
+              "description": "Model description",
+              "validFrom": "2013-11-25T09:07Z",
+              "validTo": "2013-11-26T09:07Z",
+              "modelType" : "FEEDBACK",
+              "isActive" : false,
+              "lookAlikeModelConfig" : {
+                "relativeModelReach" : 0.5,
+                "maxSampleAgeInDays" : 28,
+                "campaignId" : 1,
+                "activities" : {
+                  "or" : [ {
+                    "activity" : {
+                      "activityId" : 1
+                    }
+                  }, {
+                    "activity" : {
+                      "activityId" : 22
+                    }
+                  } ]
+                }
+              }
+              }
+              
+            Interest Model:
+            
+            curl -v -X POST -H "Accept: application/json" -d @interest_model.json -D -H "http://localhost:8080/modules/model_upload/1.0.0/accounts/1/models?token=9eee76a7-9a20-4b10-ad89-d5052b49f7a5" -H "Content-type: application/json"
+           
+            interest_model.json        
+           
+            {
+            "name" : "Interest1",
+            "export_prefix": "TRB_XYZ",
+            "description" : "Model description",
+            "validFrom" : "2014-02-19T09:18Z",
+            "validTo" : "2014-03-08T09:58Z",
+            "isActive" : false,
+            "modelType" : "INTEREST",
+            "interestModelConfig" : {
+              "maxSampleAgeInDays" : 28,
+              "vamAttributes" : [ 1, 5 ],
+              "attributeType" : "CLICK"
+            }
+            }
+          
+           Predictive Model:
+             
+           curl -v -X POST -H "Accept: application/json" -d @predictive_model.json -D -H "http://localhost:8080/modules/model_upload/1.0.30/accounts/1/models?token=9eee76a7-9a20-4b10-ad89-d5052b49f7a5" -H "Content-type: application/json"
+           
+            predictive_model.json                
+            
+            {
+            "name" : "Predictive1",
+            "export_prefix": "TRB_XYZ",
+            "description" : "Model description",
+            "validFrom" : "2013-11-25T09:07Z",
+            "validTo" : "2013-11-26T09:07Z",
+            "isActive" : false,
+            "generationSchedule" : "24",
+            "modelType" : "PREDICTIVE",
+            "lookAlikeModelConfig" : {
+              "campaigns" : {
+                "and" : [ {
+                  "campaign" : {
+                    "campaignId" : 1
+                  }
+                }, {
+                  "campaign" : {
+                    "campaignId" : 4
+                  }
+                }, {
+                  "campaign" : {
+                    "campaignId" : 8
+                  }
+                } ]
+              },
+              "relativeModelReach" : 0.5,
+              "maxSampleAgeInDays" : 1
+            }
+            }
+            
+            Segment Level Model:
+            
+            curl -v -X POST -H "Accept: application/json" -d @segment_model.json -D -H "http://localhost:8080/modules/model_upload/1.0.30/accounts/1/models?token=8536efe0-5f33-4b01-8f1f-fc18a4cd3717" -H "Content-type: application/json"
+            
+            {
+            "notes": "xaxis Test Account Note",
+            "name": "xaxis_test_account",
+            "timeZoneKey": 2,
+             "domain": "www.xyz.com",
+            "countryCode": "IN"
+            }
+           
+      responses:
+        201:
+          description: Created Successfully
+        401:
+          description: Unauthorized request
+        404:
+          description: Resource not found
+                         
+

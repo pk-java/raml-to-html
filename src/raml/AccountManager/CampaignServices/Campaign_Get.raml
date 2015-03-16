@@ -1,0 +1,72 @@
+#%RAML 0.8
+title: Campaign Get Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts/{account_key}/advertisers/{advertiser_key}/campaigns/{campaign_key}
+/Get:
+  description: This section will deals about how to get a particular campaign belongs to a user.   
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key: 
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+      body:
+       application/json:
+        example: |
+              curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts/1/campaigns/1?token=ab462786-80e2-4680-89c0-e360a1406004"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "campaigns": [
+                      {
+                          "startDate": "01/01/2014",
+                          "endDate": "01/31/2014",
+                          "publisherKey": 0,
+                          "advertiserKey": 1,
+                          "advertiserName": "Dell2",
+                          "impressionCookieWindow": 3,
+                          "clickCookieWindow": 30,
+                          "mappings": [
+                              {
+                                  "executionPlatformId": 2,
+                                  "parameterId": 4,
+                                  "externalCampaignId": 12345
+                              },
+                              {
+                                  "executionPlatformId": 1,
+                                  "parameterId": 2,
+                                  "externalCampaignId": 345
+                              },
+                              {
+                                  "executionPlatformId": 3,
+                                  "parameterId": 7,
+                                  "externalCampaignId": 3455
+                              },
+                              {
+                                  "executionPlatformId": 3,
+                                  "parameterId": 7,
+                                  "externalCampaignId": 45
+                              }
+                          ],
+                          "id": 1,
+                          "name": "Test Campaign 1",
+                          "accountKey": 1,
+                          "status": "I",
+                          "agencyName": "Maxus",
+                          "agencyKey": 1,
+                          "createdDate": "01/15/2014",
+                          "modifiedDate": "01/15/2014",
+                          "createdBy": "ALL",
+                          "modifiedBy": "ALL"
+                      }
+                  ]
+                }       
+          description: OK - The request has succeeded. 

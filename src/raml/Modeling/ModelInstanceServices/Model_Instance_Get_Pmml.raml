@@ -1,0 +1,121 @@
+#%RAML 0.8
+title: Model Instance Get PMML Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/model_upload/{module_version}/accounts/{account_key}/models/{model_key}/instances/{modelInstanceVersion}/pmml
+/GetModelInstancePMML:
+  description: This Service is used to get the pmml of a particular model instance.
+
+  get:
+      description: GET request for a particular model instance version, requires READ privilege.  
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key:
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+        Model_key:
+          description: The model_key is the id of model.
+        modelInstanceVersion:
+          description:  Model Instance Version.
+          type: integer
+      body:
+       application/json:
+        example: |
+           curl -v -k -L -X GET -H "Accept: application/json" -D -H "http://localhost:8080/modules/model_upload/1.0.30/accounts/1/models/a8307628-8648-446d-9342-66f626272d38/instances/1/pmml?token=69d02b9a-9d52-4cc3-8d7f-54d917ca99b0"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                   {
+                      "pmml" : <?xml version="1.0" encoding="UTF-8"?>
+                    <PMML>
+                            <Header copyright="24/7 media">
+                                    <Application name="turbine" version="0.0.1" />
+                            </Header>
+                            <DataDictionary numberOfFields="8">
+                                    <DataField dataType="integer" name="IMPRESSIONS_2" optype="continuous">
+                                            <Interval closure="closedOpen" leftMargin="0" rightMargin="INF" />
+                                    </DataField>
+                                    <DataField dataType="integer" name="IMPRESSIONS_3" optype="continuous">
+                                            <Interval closure="closedOpen" leftMargin="0" rightMargin="INF" />
+                                    </DataField>
+                                    <DataField dataType="integer" name="IMPRESSIONS_4" optype="continuous">
+                                            <Interval closure="closedOpen" leftMargin="0" rightMargin="INF" />
+                                    </DataField>
+                                    <DataField dataType="integer" name="IMPRESSIONS_5" optype="continuous">
+                                            <Interval closure="closedOpen" leftMargin="0" rightMargin="INF" />
+                                    </DataField>
+                                    <DataField dataType="integer" name="NUMBER_OF_IMPRESSION_TOPICS_UPDATED"
+                                            optype="continuous">
+                                            <Interval closure="closedOpen" leftMargin="0" rightMargin="INF" />
+                                    </DataField>
+                            </DataDictionary>
+                            <RegressionModel functionName="regression"
+                                    modelName="Sample for stepwise polynomial regression" algorithmName="stepwisePolynomialRegression"
+                                    normalizationMethod="softmax" targetFieldName="Lookalike_Class1">
+                                    <MiningSchema>
+                                            <MiningField name="IMPRESSIONS_2"
+                                                    missingValueReplacement="0" />
+                                            <MiningField name="IMPRESSIONS_3"
+                                                    missingValueReplacement="0" />
+                                            <MiningField name="IMPRESSIONS_4"
+                                                    missingValueReplacement="0" />
+                                            <MiningField name="IMPRESSIONS_5"
+                                                    missingValueReplacement="0" />
+                                            <MiningField name="NUMBER_OF_IMPRESSION_TOPICS_UPDATED"
+                                                    missingValueReplacement="0" />
+                                            <MiningField name="Lookalike_Class1" usageType="predicted" />
+                    
+                                    </MiningSchema>
+                                    <Output>
+                                            <OutputField name="Lookalike_Class1" optype="continuous"
+                                                    dataType="double" feature="predictedValue" />
+                                            <OutputField name="Lookalike_Class0" optype="continuous"
+                                                    dataType="double" feature="transformedValue">
+                                                    <Apply function="-">
+                                                            <Constant dataType="integer">1</Constant>
+                                                            <FieldRef field="Lookalike_Class1" />
+                                                    </Apply>
+                                            </OutputField>
+                                    </Output>
+                                    <LocalTransformations>
+                                            <DerivedField name="Norm_IMP2" dataType="float" optype="continuous">
+                                                    <Apply function="/">
+                                                            <FieldRef field="IMPRESSIONS_2" />
+                                                            <FieldRef field="NUMBER_OF_IMPRESSION_TOPICS_UPDATED" />
+                                                    </Apply>
+                                            </DerivedField>
+                                            <DerivedField name="Norm_IMP3" dataType="float" optype="continuous">
+                                                    <Apply function="/">
+                                                            <FieldRef field="IMPRESSIONS_3" />
+                                                            <FieldRef field="NUMBER_OF_IMPRESSION_TOPICS_UPDATED" />
+                                                    </Apply>
+                                            </DerivedField>
+                                            <DerivedField name="Norm_IMP4" dataType="float" optype="continuous">
+                                                    <Apply function="/">
+                                                            <FieldRef field="IMPRESSIONS_4" />
+                                                            <FieldRef field="NUMBER_OF_IMPRESSION_TOPICS_UPDATED" />
+                                                    </Apply>
+                                            </DerivedField>
+                                            <DerivedField name="Norm_IMP5" dataType="float" optype="continuous">
+                                                    <Apply function="/">
+                                                            <FieldRef field="IMPRESSIONS_5" />
+                                                            <FieldRef field="NUMBER_OF_IMPRESSION_TOPICS_UPDATED" />
+                                                    </Apply>
+                                            </DerivedField>
+                                    </LocalTransformations>
+                                    <RegressionTable targetCategory="no" intercept="125.56601826">
+                                            <NumericPredictor name="Norm_IMP2" coefficient="-28.66384" />
+                                            <NumericPredictor name="Norm_IMP3" coefficient="-44.42746" />
+                                            <NumericPredictor name="Norm_IMP4" coefficient="-51.42026" />
+                                            <NumericPredictor name="Norm_IMP5" coefficient="-38.27426" />
+                                    </RegressionTable>
+                            </RegressionModel>
+                    </PMML>
+                    
+                    }
+          description: OK - The request has succeeded.

@@ -1,0 +1,61 @@
+#%RAML 0.8
+title: Account Get Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts/{account_key}
+/Get:
+  description: This section will deals about how to get a particular account belongs to a user and about how to get a particular account Statistics belongs to an user.  
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key: 
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+      body:
+       application/json:
+        example: |
+              To get account belong to particular the user
+              curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts/12?token=ab462786-80e2-4680-89c0-e360a1406004"
+              
+              To get account statistics belong to particular user.
+              
+              curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts/12?token=ab462786-80e2-4680-89c0-e360a1406004&statistics=true"
+
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                Account details of particular user.
+                
+                {
+                  "accounts": [
+                      {
+                          "id": "12",
+                          "name": "Xaxis South America",
+                          "notes": "Test Account Note",
+                          "status": "A",
+                          "countryCode": "US",
+                          "domain": "abc.com",
+                          "timeZoneKey": 2,
+                          "timeZoneName": "America/Buenos_Aires",
+                          "createdDate": "01/06/2014",
+                          "createdBy": "SUPER_SOURATN"
+                      }
+                  ]
+                }
+                
+                Account statistics of particular user.
+                
+                {
+                "statistics": {
+                    "campaigns": 9,
+                    "advertisers": 7,
+                    "activities": 17
+                }
+                }
+          description: OK - The request has succeeded. 

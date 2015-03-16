@@ -1,0 +1,39 @@
+#%RAML 0.8
+title: User Type Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/userTypes
+/UserType:
+  description: This section will deals about how to get a particular user's Types List.
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+      body:
+       application/json:
+        example: |
+              curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/ usertypes?token=ab462786-80e2-4680-89c0-e360a1406004"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                    {
+                      "userTypes": [
+                          {
+                              "id": 1,
+                              "name": "SUPERUSER"
+                          },
+                          {
+                              "id": 2,
+                              "name": "ACCOUNTUSER"
+                          },
+                          {
+                              "id": 3,
+                              "name": "REGUSER"
+                          }
+                      ]
+                    }       
+          description: OK - The request has succeeded. 

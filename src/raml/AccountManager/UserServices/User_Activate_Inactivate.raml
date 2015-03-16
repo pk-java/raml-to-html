@@ -1,0 +1,36 @@
+#%RAML 0.8
+title: User Activate/Inactivate Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/users/user_key?token=token&action=activate
+/UserActivationOrInactivation:
+  description: This service will be used to make a particular user activate (enable) or inactivate (disable) in the turbine system.
+  post:
+      description: POST request with **activate** action or **inactivation** action, requires UPDATE privilege
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        user_key: 
+          description: The user_key is the id of user.
+          required: true
+          type: integer
+      body:
+       application/json:
+        example: |
+          Activate:
+            
+           curl  -X POST -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/users/34?token=9dd88e89-8071-41a7-8fad-3b00f57a96a0&action=activate"
+           
+           Inactivate:
+           
+           curl  -X POST -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/users/35?token=9dd88e89-8071-41a7-8fad-3b00f57a96a0&action=deactivate"
+            
+      responses:
+        201:               
+          description: Created Successfully
+        401:
+          description: Unauthorized request
+        404:
+          description: Resource not found
+           

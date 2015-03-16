@@ -1,0 +1,54 @@
+#%RAML 0.8
+title: User Preference List Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/users/{user_key}/userPrefs
+/List:
+  description: This section will deals with example about how to get the list of user preference belongs to user. 
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+      body:
+       application/json:
+        example: |              
+             curl  -H "Accept: application/json" " http://127.0.0.1:8080/modules/account_manager/1.0.30/users/25/userPrefs?token=317ab0b8-f226-4a03-a44d-42ad6cf83e1a"
+            
+      responses:
+        200:
+          body:
+            application/json:
+              example: |            
+                
+                {
+                    "userPrefs": [
+                        {
+                            "id": 25,
+                            "pref": [
+                                {
+                                    "code": " language ",
+                                    "prefValue": "test1233",
+                                    "prefKey": 7
+                                },
+                                {
+                                    "code": "language",
+                                    "prefValue": "english",
+                                    "prefKey": 4
+                                },
+                                {
+                                    "code": "logic",
+                                    "prefValue": "{ \"page\": [{ \"page1 \": \" leftTop \", \"page2\": \"rightBottom\" }]}",
+                                    "prefKey": 41
+                                },
+                                {
+                                    "code": "test123",
+                                    "prefValue": "XYZ",
+                                    "prefKey": 37
+                                }
+                            ]
+                        }
+                    ]
+                }
+          description: OK - The request has succeeded. 

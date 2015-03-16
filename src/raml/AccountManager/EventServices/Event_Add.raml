@@ -1,0 +1,43 @@
+#%RAML 0.8
+title: Event Add Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts/{account_key}/campaigns/{campaign_key}/events
+/Add:
+  description: This section will deals about the example to add a new event to the turbine system.    
+  post:
+      description: POST request, requires ADD privilege. event_json.txt file used to create an event is shown in the request example.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key: 
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+      body:
+       application/json:
+        example: |
+           curl  -X POST -H "Accept: application/json" -H "Content-Type: application/json" -d @event_json.txt "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts/1/events?token=12472945-d02d-4804-bff5-67c2b597a998"
+           
+            event_json.txt
+              
+             {
+                "eventType":"C",
+                "customVariables": [
+                {
+                   "name": "dsaf",
+                   "id": "1",
+                   "description": "123",
+                   "dataTypeId": 2
+                 }]
+            }
+            
+      responses:
+        201:               
+          description: Created Successfully
+        401:
+          description: Unauthorized request
+        404:
+          description: Resource not found
+           

@@ -1,0 +1,9 @@
+#%RAML 0.8
+title: Bulk Scoring Services
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/model_upload/{module_version}/accounts/{account_key}?token=token&action=score  
+documentation:
+ - title: Bulk Scoring Services
+   content: |
+    Bulk scoring is only possible for models that have instances. Only models that have an activate instance are considered for scoring.

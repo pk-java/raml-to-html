@@ -1,0 +1,101 @@
+#%RAML 0.8
+title: Campaign Add Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts/{account_key}/advertisers/{advertiser_key}/campaigns
+/Update:
+  description: This section will deals about the example to add a new campaign  to the turbine system.
+  post:
+      description: POST request, requires ADD privilege. campaign_json.json file used to create a campaign is shown in the request example.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        name:
+          description: The name of the advertiser mentioned in advertiser_json.json file while creating the advertiser.
+          required: true
+        description:
+          description: The description about the campaign.
+          required: false
+        status:
+          description: The status of the campaign. The status is by defalut "W".
+        notes:
+          description: The description about the campaign can be given in notes.
+          required: false
+        account_key: 
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+        externalCampaignKey:
+          description: This is an external key for the campaign.
+          required: true
+          type: integer
+        deliveryPlatformKey:
+          description: This is the delivery platform key for the campaign.
+          required: true
+          type: integer
+        advertiserKey:
+          description: The advertiser_key is the id of the advertiser.
+          required: true
+          type: integer
+        publisherKey:
+          description: The publisher key is the if of publisher.
+          required: true
+          type: integer
+        startDate:
+          description: The start date is campaign's start date. It should be in this format MM/DD/YYYY.
+          required: true
+        endDate:
+          description: The end date is the campaign's end date. It should be in this format MM/DD/YYYY.
+          required: true
+        mappings:
+         description:  This is an array and it will have execution platform Id, ext. campaign Id and parameter Id as it's values.
+         required: false
+      body:       
+        application/json:
+         example: |
+            curl  -X POST -H "Accept: application/json" -H "Content-Type: application/json" -d @campaign_json.txt "http://localhost:8080/modules/account_manager/1.0.0/accounts/303/campaigns?token=9dd88e89-8071-41a7-8fad-3b00f57a96a0"
+            
+              campaign_json.txt
+                      
+              {
+            "startDate": "01/01/2014",
+            "endDate": "01/31/2014",
+            "impressionCookieWindow": 3,
+            "clickCookieWindow": 30,
+            "mappings": [
+                {
+                    "executionPlatformId": 2,
+                    "parameterId": 4,
+                    "externalCampaignId": 12345
+                },
+                {
+                    "executionPlatformId": 1,
+                    "parameterId": 2,
+                    "externalCampaignId": 345
+                },
+                {
+                    "executionPlatformId": 3,
+                    "parameterId": 7,
+                    "externalCampaignId": 3455
+                },
+                {
+                    "executionPlatformId": 3,
+                    "parameterId": 7,
+                    "externalCampaignId": 45
+                }
+            ], 
+            "name": "Test Campaign 1",
+            "agencyKey": 1
+            }
+           
+      responses:
+        200:
+          body:
+            application/json:
+          description: OK - The request has succeeded
+        401:
+          description: Unauthorized request
+        404: 
+          description: Resource not found
+  

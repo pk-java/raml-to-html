@@ -1,0 +1,47 @@
+#%RAML 0.8
+title: Activity Add Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts/{account_key}/activities
+/Add:
+  description: This section deals about the example to add a new activity to the turbine system.   
+  post:
+      description: POST request, requires ADD privilege. activity_json.txt file used to create an account is shown in the request example.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        name:
+          description: The name of the activity mentioned in activity_json.txt file while creating the account.
+          required: true
+      body:
+       application/json:
+        example: |
+           curl  -X POST -H "Accept: application/json" -H "Content-Type: application/json" -d @account_json.txt "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts?token=12472945-d02d-4804-bff5-67c2b597a998"
+           
+              activity_json.txt
+              
+            {
+            "description": "sdfdsg",
+            "activityType": "A",
+            "dataSupplier": "sfsdfg",
+            "name": "dsfsdfg",
+            "customVariables": [
+                {
+                    "name": "dsaf",
+                    "id": "1",
+                    "description": "123",
+                    "dataTypeId": 2
+                }
+            ],
+           }
+            
+      responses:
+        201:               
+          description: Created Successfully
+        401:
+          description: Unauthorized request
+        404:
+          description: Resource not found
+           
+  

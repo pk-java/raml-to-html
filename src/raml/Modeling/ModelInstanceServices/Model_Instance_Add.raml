@@ -1,0 +1,131 @@
+#%RAML 0.8
+title: Model Instance Add Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/model_upload/{module_version}/accounts/{account_key}/models/{model_key}/instances
+/Add:
+  description: This section deals about the example to add a new model instance to the turbine system. Creating a model instance does not have any influence on already existing instances or their state (active/inactive). The uploaded model instance is in the deactivated state until it is explicitly activated. Each instance upload must contain the full set of instance data. The request must be a multipart request with two attachments named **instance** and **pmml**. The **instance** attachment contains the complete JSON data describing the instance, the **pmml** attachments contains the PMML XML data for this instance. The ID of the new model instance is returned in the Location response header. This section will deals about the example to add a new model to the turbine system.
+  
+  post:
+      description: POST request, requires ADD privilege. Instance.json and pmml.xml files used to create a model instance are shown in the request example.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key:
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+      body:
+       application/json:
+        example: |
+           curl -k -L -X POST -F "instance=@instance.json;type=application/json" -F "pmml=@pmml.xml;type=text/xml" -H "Accept: application/json" -D -H "http://localhost:8080/modules/model_upload/1.0.0/accounts/1/models/a8307628-8648-446d-9342-66f626272d38/instances?token=bb913434-f5bd-46ab-936a-2f53f3eb1824"
+           
+              instance.json
+        
+              {
+              "description" : "Instance description",
+              "lifeTime" : "2015-11-25T09:07Z",
+              "thresholds" : [ {
+              "name" : "threshold1",
+              "value" : 0.5
+              } ]
+            }
+            
+            pmml.xml
+            
+            <?xml version="1.0" encoding="UTF-8"?>
+              <PMML>
+                <Header copyright="24/7 media">
+                  <Application name="turbine" version="0.0.1" />
+                </Header>
+                <DataDictionary numberOfFields="8">
+                  <DataField dataType="integer" name="IMPRESSIONS_2" optype="continuous">
+                    <Interval closure="closedOpen" leftMargin="0" rightMargin="INF" />
+                  </DataField>
+                  <DataField dataType="integer" name="IMPRESSIONS_3" optype="continuous">
+                    <Interval closure="closedOpen" leftMargin="0" rightMargin="INF" />
+                  </DataField>
+                  <DataField dataType="integer" name="IMPRESSIONS_4" optype="continuous">
+                    <Interval closure="closedOpen" leftMargin="0" rightMargin="INF" />
+                  </DataField>
+                  <DataField dataType="integer" name="IMPRESSIONS_5" optype="continuous">
+                    <Interval closure="closedOpen" leftMargin="0" rightMargin="INF" />
+                  </DataField>
+                  <DataField dataType="integer" name="NUMBER_OF_IMPRESSION_TOPICS_UPDATED"
+                    optype="continuous">
+                    <Interval closure="closedOpen" leftMargin="0" rightMargin="INF" />
+                  </DataField>
+                </DataDictionary>
+                <RegressionModel functionName="regression"
+                  modelName="Sample for stepwise polynomial regression" algorithmName="stepwisePolynomialRegression"
+                  normalizationMethod="softmax" targetFieldName="Lookalike_Class1">
+                  <MiningSchema>
+                    <MiningField name="IMPRESSIONS_2"
+                      missingValueReplacement="0" />
+                    <MiningField name="IMPRESSIONS_3"
+                      missingValueReplacement="0" />
+                    <MiningField name="IMPRESSIONS_4"
+                      missingValueReplacement="0" />
+                    <MiningField name="IMPRESSIONS_5"
+                      missingValueReplacement="0" />
+                    <MiningField name="NUMBER_OF_IMPRESSION_TOPICS_UPDATED"
+                      missingValueReplacement="0" />
+                    <MiningField name="Lookalike_Class1" usageType="predicted" />
+              
+                  </MiningSchema>
+                  <Output>
+                    <OutputField name="Lookalike_Class1" optype="continuous"
+                      dataType="double" feature="predictedValue" />
+                    <OutputField name="Lookalike_Class0" optype="continuous"
+                      dataType="double" feature="transformedValue">
+                      <Apply function="-">
+                        <Constant dataType="integer">1</Constant>
+                        <FieldRef field="Lookalike_Class1" />
+                      </Apply>
+                    </OutputField>
+                  </Output>
+                  <LocalTransformations>
+                    <DerivedField name="Norm_IMP2" dataType="float" optype="continuous">
+                      <Apply function="/">
+                        <FieldRef field="IMPRESSIONS_2" />
+                        <FieldRef field="NUMBER_OF_IMPRESSION_TOPICS_UPDATED" />
+                      </Apply>
+                    </DerivedField>
+                    <DerivedField name="Norm_IMP3" dataType="float" optype="continuous">
+                      <Apply function="/">
+                        <FieldRef field="IMPRESSIONS_3" />
+                        <FieldRef field="NUMBER_OF_IMPRESSION_TOPICS_UPDATED" />
+                      </Apply>
+                    </DerivedField>
+                    <DerivedField name="Norm_IMP4" dataType="float" optype="continuous">
+                      <Apply function="/">
+                        <FieldRef field="IMPRESSIONS_4" />
+                        <FieldRef field="NUMBER_OF_IMPRESSION_TOPICS_UPDATED" />
+                      </Apply>
+                    </DerivedField>
+                    <DerivedField name="Norm_IMP5" dataType="float" optype="continuous">
+                      <Apply function="/">
+                        <FieldRef field="IMPRESSIONS_5" />
+                        <FieldRef field="NUMBER_OF_IMPRESSION_TOPICS_UPDATED" />
+                      </Apply>
+                    </DerivedField>
+                  </LocalTransformations>
+                  <RegressionTable targetCategory="no" intercept="125.56601826">
+                    <NumericPredictor name="Norm_IMP2" coefficient="-28.66384" />
+                    <NumericPredictor name="Norm_IMP3" coefficient="-44.42746" />
+                    <NumericPredictor name="Norm_IMP4" coefficient="-51.42026" />
+                    <NumericPredictor name="Norm_IMP5" coefficient="-38.27426" />
+                  </RegressionTable>
+                </RegressionModel>
+              </PMML>
+
+      responses:
+        201:               
+          description: Created Successfully
+        401:
+          description: Unauthorized request
+        404:
+          description: Resource not found
+           
+  

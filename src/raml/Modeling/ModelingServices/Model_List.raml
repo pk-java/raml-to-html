@@ -1,0 +1,184 @@
+#%RAML 0.8
+title: Modeling List Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/model_upload/{module_version}/accounts/{account_key}/models
+/List:
+  description: The optional **instances=true** request parameter additionally returns the list of instances for this model. The optional **history=true** request parameter adds the history for each model and instance. The optional **jobs=true** request parameter adds the model generation job list for each model. Note that this option is for internal use (error analysis) only, but must not be used by external clients. The optional **date** request parameter specifies an ISO date, e.g. **2013-12-01** for filtering. The optional **types** request parameter filters by model types. A comma-separated list of types is accepted. Only the specified model types (**interest**, **feedback**, **demographic**) are returned. With the optional **name** parameter only the model with the specified name is listed.
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key:
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+      body:
+       application/json:
+        example: |
+           List:
+            
+           curl -H "Accept: application/json" "http://localhost:8080/modules/model_upload/1.0.0/accounts/1/models?token=9b81b52a-d9d2-47db-b87b-618c800c28a3"
+           
+           List by Names:
+           
+           curl -v -H "Accept: application/json" "http://10.80.20.229:8080/modules/model_upload/2.0.90/accounts/1/models?token=da263bff-7f05-4d11-ae0e-dc5e57b8119f&name=SegModel,CampModel,AdvModel"
+           
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                List:
+                  
+                 {
+                    "models" : [ {
+                    "id" : "a8307628-8648-446d-9342-66f626272d38",
+                    "accountId" : 1,
+                    "name" : "Feedbackmodelname",
+                    "description" : "Model description",
+                    "author" : "lohithap",
+                    "creationDate" : "2014-05-05T21:25Z",
+                    "modificationDate" : "2014-05-14T20:21Z",
+                    "advertiserId" : 8,
+                    "validFrom" : "2013-11-25T09:07Z",
+                    "validTo" : "2013-11-26T09:07Z",
+                    "isActive" : false,
+                    "generationSchedule" : "",
+                    "status" : "NOT_STARTED",
+                    "modelType" : "FEEDBACK",
+                    "lookAlikeModelConfig" : {
+                      "campaignId" : 1,
+                      "activities" : {
+                        "or" : [ {
+                          "activity" : {
+                            "activityId" : 1
+                          }
+                        }, {
+                          "activity" : {
+                            "activityId" : 22
+                          }
+                        } ]
+                      },
+                      "relativeModelReach" : 0.5,
+                      "maxSampleAgeInDays" : 28
+                    }
+                  }, {
+                    "id" : "16e1e830-b1c2-48f3-b8bf-15617e67f5e8",
+                    "accountId" : 1,
+                    "name" : "modelname",
+                    "description" : "Model description",
+                    "author" : "lohithap",
+                    "creationDate" : "2014-05-05T21:28Z",
+                    "modificationDate" : "2014-05-05T21:28Z",
+                    "advertiserId" : 0,
+                    "validFrom" : "2013-11-25T09:07Z",
+                    "validTo" : "2013-11-26T09:07Z",
+                    "isActive" : false,
+                    "generationSchedule" : "",
+                    "status" : "NOT_STARTED",
+                    "modelType" : "FEEDBACK",
+                    "lookAlikeModelConfig" : {
+                      "campaignId" : 1,
+                      "activities" : {
+                        "or" : [ {
+                          "activity" : {
+                            "activityId" : 1
+                          }
+                        }, {
+                          "activity" : {
+                            "activityId" : 22
+                          }
+                        } ]
+                      },
+                      "relativeModelReach" : 0.5,
+                      "maxSampleAgeInDays" : 28
+                    }
+                  }, {
+                    "id" : "a35c3c15-3c13-45f8-956f-4d8223757af7",
+                    "accountId" : 1,
+                    "name" : "Demographic",
+                    "description" : "Model description",
+                    "author" : "superuser",
+                    "creationDate" : "2014-05-14T20:08Z",
+                    "modificationDate" : "2014-05-14T20:08Z",
+                    "advertiserId" : 0,
+                    "validFrom" : "2013-11-25T09:07Z",
+                    "validTo" : "2013-11-26T09:07Z",
+                    "isActive" : false,
+                    "generationSchedule" : "",
+                    "status" : "NOT_STARTED",
+                    "modelType" : "DEMOGRAPHIC"
+                  } ]
+                 }
+                 
+                 List by Names:
+                 
+                  {
+                    "models" : [{
+                    "id" : "8e2e2a62-e9bc-4c15-a97a-fb222b650052",
+                    "accountId" : 1,
+                    "name" : "SegModel",
+                    "description" : "",
+                    "author" : "nitin",
+                    "creationDate" : "2014-06-11T18:49Z",
+                    "modificationDate" : "2014-06-11T18:49Z",
+                    "validFrom" : "2014-06-11T18:49Z",
+                    "validTo" : "2014-06-28T19:30Z",
+                    "isActive" : true,
+                    "generationSchedule" : "24",
+                    "status" : "NOT_STARTED",
+                    "modelType" : "SEGMENT",
+                    "segmentModelConfig" : {
+                      "maxSampleAgeInDays" : 28,
+                    }, {
+                       "id" : "1ebe8785-4645-4c53-ab49-4285b222c79c",
+                   "accountId" : 1,
+                   "name" : "CampModel",
+                   "description" : "",
+                   "author" : "nitin",
+                   "creationDate" : "2014-06-11T18:45Z",
+                   "modificationDate" : "2014-06-11T18:45Z",
+                   "validFrom" : "2014-06-11T18:45Z",
+                   "validTo" : "2014-06-28T19:25Z",
+                   "isActive" : true,
+                   "generationSchedule" : "24",
+                   "status" : "NOT_STARTED",
+                   "modelType" : "FEEDBACK",
+                   "lookAlikeModelConfig" : {
+                     "campaignId" : 30,
+                     "activities" : {
+                       "activity" : {
+                         "activityId" : 92
+                       }
+                     },
+                     "relativeModelReach" : 0.5,
+                     "maxSampleAgeInDays" : 28
+                   }
+                 }, {
+                   "id" : "7bc80937-bf10-4e88-9e05-f4589fbdcbcd",
+                   "accountId" : 1,
+                   "name" : "AdvModel",
+                   "description" : "",
+                   "author" : "nitin",
+                   "creationDate" : "2014-06-11T18:44Z",
+                   "modificationDate" : "2014-06-11T18:44Z",
+                   "validFrom" : "2014-06-11T18:44Z",
+                   "validTo" : "2014-06-28T19:25Z",
+                   "isActive" : true,
+                   "generationSchedule" : "24",
+                   "status" : "NOT_STARTED",
+                   "modelType" : "FEEDBACK",
+                   "lookAlikeModelConfig" : {
+                     "activities" : {
+                       "activity" : {
+                         "activityId" : 92
+                       }
+                     },
+                     "relativeModelReach" : 0.5,
+                     "maxSampleAgeInDays" : 28  } 
+                } ]
+                }
+          description: OK - The request has succeeded.

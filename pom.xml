@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.pkt.java.mvn</groupId>
+	<artifactId>turbine_api_docs</artifactId>
+	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>turbine_api_docs Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+	</dependencies>
+	<build>
+		<finalName>TurbineApiDocs</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>exec-maven-plugin</artifactId>
+				<groupId>org.codehaus.mojo</groupId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<id>clean_html_folders</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>src\scripts\runBatch.bat</executable>
+							<arguments>
+								<argument>${basedir}\src\scripts\cleanHtmlFolder.js</argument>
+								<argument>${basedir}\src\main\webapp\html</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>convert_all_raml_to_html</id>
+						<phase>test</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>src\scripts\runBatch.bat</executable>
+							<arguments>
+								<argument>${basedir}\src\scripts\convertRamlToHtml.js</argument>
+								<argument>${basedir}\src\raml</argument> <!-- source folder -->
+								<argument>${basedir}\src\main\webapp\html\</argument> <!-- Destination folder -->
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

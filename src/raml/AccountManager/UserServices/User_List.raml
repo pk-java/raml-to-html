@@ -1,0 +1,99 @@
+#%RAML 0.8
+title: User List Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/users
+/List:
+  description: This section will deals with example about how to get the list of user. Using List Service we can get the list of users.
+  
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+      body:
+       application/json:
+        example: |
+          List of all the users:
+            
+              curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/users?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0"
+              
+          To get list of all the users:
+              
+          curl  -H "Accept: application/json" curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/users?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0&orderByColumn=name&orderBy=desc&filterBy=campaign_status:A&searchBy=campaign_name:dell"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                List of all the users:
+                {
+                  "users": [
+                      {
+                          "userName": "ACCOUNT_USER",
+                          "firstName": "ACCOUNT",
+                          "lastName": "USER",
+                          "title": "Mr",
+                          "email": "ACCOUNT_USER@GROUPM.COM",
+                          "phone": "1234567890",
+                          "fax": "1234567890",
+                          "notes": "Note",
+                          "userTypeName": "ACCOUNTUSER",
+                          "timezoneKey": 1,
+                          "timezoneName": "US/Eastern",
+                          "id": 2,
+                          "status": "A"
+                      },
+                      {
+                          "userName": "REGULAR_USER",
+                          "firstName": "REGULAR",
+                          "lastName": "USER",
+                          "title": "Mr",
+                          "email": "REGULAR_USER@GROUPM.COM",
+                          "phone": "1234567890",
+                          "fax": "1234567890",
+                          "notes": "Note",
+                          "userTypeName": "REGUSER",
+                          "timezoneKey": 1,
+                          "timezoneName": "US/Eastern",
+                          "id": 3,
+                          "status": "A"
+                      }
+                  ],
+                  "totalRows": 8
+                }
+                  
+                 List of all the users with descending order on user “name”.  
+                 
+                 {
+                  "users": [
+                      {
+                          "userName": "SUPER_USER",
+                          "firstName": "SUPER",
+                          "lastName": "USER",
+                          "title": "Mr.",
+                          "email": "SUPER@GROUPM.COM",
+                          "phone": "1234567890",
+                          "fax": "1234567890",
+                          "notes": "Super user",
+                          "userTypeName": "SUPERUSER",
+                          "timezoneKey": 1,
+                          "timezoneName": "US/Eastern",
+                          "id": 1,
+                          "status": "A"
+                      },
+                      {
+                          "userName": "SUPERUSER",
+                          "firstName": "SUPERUSER",
+                          "lastName": "SUPERUSER",
+                          "userTypeName": "SUPERUSER",
+                          "timezoneKey": 1,
+                          "timezoneName": "US/Eastern",
+                          "id": 0,
+                          "status": "A"
+                      }
+                  ],
+                  "totalRows": 2
+                }          
+          description: OK - The request has succeeded. 

@@ -1,0 +1,42 @@
+#%RAML 0.8
+title: Account Add Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts
+/Add:
+  description: This section deals about the example to add a new account to the turbine system.   
+  post:
+      description: POST request, requires ADD privilege. account_json.json file used to create an account is shown in the request example.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        name:
+          description: The name of the account mentioned in account_json.json file while creating the account.
+          required: true
+        notes:
+          description: The description about the account can be given in notes.
+          required: false
+      body:
+       application/json:
+        example: |
+           curl  -X POST -H "Accept: application/json" -H "Content-Type: application/json" -d @account_json.txt "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts?token=12472945-d02d-4804-bff5-67c2b597a998"
+           
+              account_json.txt
+            {
+                "notes": "Test Account Note",
+                "name": "afsar_1111",
+                "timeZoneKey": 2,
+                "domain": "abc.com",
+                "countryCode": "US"
+            }
+            
+      responses:
+        201:               
+          description: Created Successfully
+        401:
+          description: Unauthorized request
+        404:
+          description: Resource not found
+           
+  

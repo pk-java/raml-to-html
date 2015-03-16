@@ -1,0 +1,140 @@
+#%RAML 0.8
+title: Event List Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts/{account_key}/campaigns/{campaign_key}/events
+/List:
+  description: This section will deals with example about how to get the list of event belongs to user. 
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+      body:
+       application/json:
+        example: |
+            To get list of Events under an account:
+              
+              curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/ accounts/1/events?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0"
+              
+            To get list of Events under a campaign:
+            
+            curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/ accounts/1/campaigns/1/events?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0"
+            
+            To get all the events with descending order on event “id” :
+            
+            curl  -H "Accept: application/json" curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/ accounts/1/events?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0 &orderByColumn=name&orderBy=desc"
+            
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                List of Events under an account:
+                
+                {
+                  "eventList": [
+                      {
+                          "campaignKey": 1,
+                          "id": 1,
+                          "accountKey": 1,
+                          "customVariables": [],
+                          "createdDate": "01/10/2014",
+                          "modifiedDate": "01/10/2014",
+                          "createdBy": "SUPER_AFSAR",
+                          "modifiedBy": "SUPER_AFSAR"
+                      },
+                      {
+                          "campaignKey": 1,
+                          "id": 2,
+                          "accountKey": 1,
+                          "customVariables": [],
+                          "createdDate": "01/13/2014",
+                          "modifiedDate": "01/13/2014",
+                          "createdBy": "SUPER_AFSAR"
+                      },
+                      {
+                          "campaignKey": 1,
+                          "id": 3,
+                          "accountKey": 1,
+                          "customVariables": [],
+                          "createdDate": "01/13/2014",
+                          "modifiedDate": "01/13/2014",
+                          "createdBy": "SUPER_AFSAR"
+                      }
+                  ],
+                  "totalRows": 19
+                }
+                
+                List of Events under a campaign:
+                
+                {
+                  "eventList": [
+                      {
+                          "campaignKey": 1,
+                          "id": 1,
+                          "accountKey": 1,
+                          "customVariables": [],
+                          "createdDate": "01/10/2014",
+                          "modifiedDate": "01/10/2014",
+                          "createdBy": "SUPER_AFSAR",
+                          "modifiedBy": "SUPER_AFSAR"
+                      },
+                      {
+                          "campaignKey": 1,
+                          "id": 2,
+                          "accountKey": 1,
+                          "customVariables": [],
+                          "createdDate": "01/13/2014",
+                          "modifiedDate": "01/13/2014",
+                          "createdBy": "SUPER_AFSAR"
+                      },
+                      {
+                          "campaignKey": 1,
+                          "id": 3,
+                          "accountKey": 1,
+                          "customVariables": [],
+                          "createdDate": "01/13/2014",
+                          "modifiedDate": "01/13/2014",
+                          "createdBy": "SUPER_AFSAR"
+                      }
+                  ],
+                  "totalRows": 16
+                }
+                List of all the events with descending order on event “id” :
+                
+                {
+                  "eventList": [
+                      {
+                          "campaignKey": 1,
+                          "id": 1,
+                          "accountKey": 1,
+                          "customVariables": [],
+                          "createdDate": "01/10/2014",
+                          "modifiedDate": "01/10/2014",
+                          "createdBy": "SUPER_AFSAR",
+                          "modifiedBy": "SUPER_AFSAR"
+                      },
+                      {
+                          "campaignKey": 1,
+                          "id": 2,
+                          "accountKey": 1,
+                          "customVariables": [],
+                          "createdDate": "01/13/2014",
+                          "modifiedDate": "01/13/2014",
+                          "createdBy": "SUPER_AFSAR"
+                      },
+                      {
+                          "campaignKey": 1,
+                          "id": 3,
+                          "accountKey": 1,
+                          "customVariables": [],
+                          "createdDate": "01/13/2014",
+                          "modifiedDate": "01/13/2014",
+                          "createdBy": "SUPER_AFSAR"
+                      }
+                  ],
+                  "totalRows": 19
+                }                
+          description: OK - The request has succeeded. 

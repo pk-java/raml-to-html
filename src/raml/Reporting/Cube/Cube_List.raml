@@ -1,0 +1,111 @@
+#%RAML 0.8
+title: Cube Manager List Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/reporting/{module_version}/accounts/{account_key}/cubes
+/List:
+  description: This section will deals with example about how to get the list of all  cubes of an account.  
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key:
+          description: It is the Id of an account.
+          required: true
+          type: integer
+        type:
+          description: It is used to filter the cubes by type.
+          required: false
+      body:
+       application/json:
+        example: |
+              curl -i -H "Accept: application/json" "http://turbjb01.realads.com:8080/modules/reporting/2.0.0/accounts/1/cubes?type=SNAPSHOT&token=e9b43637-56de-48ff-ab05-d67af0f6def7"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                      {
+                        "cubes" : 
+                        [ 
+                        {
+                        "name" : "Advertisers",
+                        "cubeTypes" : [ "SNAPSHOT" ],
+                        "isAggregationCube" : false,
+                        "metrics" : 
+                        [ 
+                        {
+                        "name" : "AdvertiserCount",
+                        "description" : "Number of advertisers",
+                        "valueType" : "INTEGER",
+                        "conditionTypes" : [ "EQUALS", "NOT_EQUALS", "LESS_OR_EQUAL_THAN", "MORE_OR_EQUAL_THAN" ]
+                        } 
+                        ],
+                        "dimensions" : 
+                        [ 
+                        {
+                        "name" : "AdvertiserStatus",
+                        "description" : "Status of the advertiser",
+                        "valueType" : "CHAR",
+                        "conditionTypes" : [ "EQUALS", "NOT_EQUALS" ]
+                        }, 
+                        {
+                        "name" : "CreationDay",
+                        "description" : "Day when advertiser was created",
+                        "valueType" : "DATE",
+                        "conditionTypes" : [ "EQUALS", "NOT_EQUALS", "BEFORE", "AFTER" ]
+                        } 
+                        ]
+                        }, 
+                        
+                        {
+                        "name" : "Campaigns",
+                        "cubeTypes" : [ "SNAPSHOT" ],
+                        "isAggregationCube" : false,
+                        "metrics" : 
+                        [ 
+                        {
+                        "name" : "CampaignCount",
+                        "description" : "Number of Campaigns",
+                        "valueType" : "INTEGER",
+                        "conditionTypes" : [ "EQUALS", "NOT_EQUALS", "LESS_OR_EQUAL_THAN", "MORE_OR_EQUAL_THAN" ]
+                        } 
+                        ],
+                        "dimensions" : 
+                        [
+                        {
+                        "name" : "AdvertiserId",
+                        "description" : "ID of the Advertiser",
+                        "valueType" : "INTEGER",
+                        "conditionTypes" : [ "EQUALS", "NOT_EQUALS" ]
+                        }, 
+                        {
+                        "name" : "AdvertiserName",
+                        "description" : "Name of the Advertiser",
+                        "valueType" : "STRING",
+                        "conditionTypes" : [ "EQUALS", "NOT_EQUALS" ]
+                        }, 
+                        {
+                        "name" : "CampaignStatus",
+                        "description" : "Status of the campaign",
+                        "valueType" : "CHAR",
+                        "conditionTypes" : [ "EQUALS", "NOT_EQUALS" ]
+                        }, 
+                        {
+                        "name" : "CreationDay",
+                        "description" : "Day when campaign was created",
+                        "valueType" : "DATE",
+                        "conditionTypes" : [ "EQUALS", "NOT_EQUALS", "BEFORE", "AFTER" ]
+                        } 
+                        ]
+                        }
+                        ]
+                        }
+              
+          description: OK - The request has succeeded. 
+        401:
+          description: Unauthorized request.
+        404:
+          description: Resource not found.

@@ -1,0 +1,30 @@
+#%RAML 0.8
+title: Modeling Services Delete
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/model_upload/{module_version}/accounts/{account_key}/models/{model_key}
+/Delete:
+  description: DELETE request, requires DELETE privilege. This Service is used to delete a model. When a particular model is deleted, all its instances will be deleted.
+  delete:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key:
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+        Model_key:
+          description: The model_key is the id of model.
+      body:
+       application/json:
+        example: |
+          curl -X DELETE -H "Accept: application/json" -D -H "http://localhost:8080/modules/model_upload/1.0.30/accounts/1/models/1b220a6b-0439-4bcd-b73c-660b2e1a05fc?token=bff5acd6-45ae-480a-8205-6b9c5e89a263"
+      responses:
+        200:
+          description: OK - The request has succeeded
+        401:
+          description: Unauthorized request
+        404:
+          description: Resource not found 

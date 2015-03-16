@@ -1,0 +1,44 @@
+#%RAML 0.8
+title: Activity Get Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts/{account_key}/activities/{activity_key}
+/Get:
+  description: This section will deals about how to get a particular activity belongs to a user.
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key: 
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+      body:
+       application/json:
+        example: |       
+            curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts/1/activities/19?token=ab462786-80e2-4680-89c0-e360a1406004"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                 {
+                  "activityList": [
+                      {
+                          "description": "sfsf",
+                          "advertiserKey": 0,
+                          "activityType": "A",
+                          "dataSupplier": "sfsf",
+                          "id": 19,
+                          "name": "adsadf",
+                          "accountKey": 1,
+                          "status": "D",
+                          "customVariables": [],
+                          "createdDate": "01/10/2014",
+                          "createdBy": "SUPER_PRATHAMESH"
+                      }
+                  ]
+                  }
+          description: OK - The request has succeeded. 

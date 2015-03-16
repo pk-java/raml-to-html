@@ -1,0 +1,32 @@
+#%RAML 0.8
+title: Glossary
+version: 1
+baseUri: http://localhost:8080/registry/model_upload/{module_version}
+documentation:
+ - title: Conventions
+   content: |
+     **Client:** - Client application.
+     **Status:** - HTTP status code of response.
+     All response is in JSON format.
+     
+     **Status Codes:**
+             All status coddes are standard HTTP status codes. The below ones are used in this API.
+             
+        **2XX** - Success of some kind.
+        
+        **400** - 405 - Error occurred in client's part.
+        
+        **5XX** - Error occurred in server's part.
+        
+        **200** - OK
+        
+        **201** - created
+        
+        **202** - Accepted (Request accepted, and queued for execution)
+        
+        **400** - Bad request.
+        
+        **403** - Forbidden
+        
+        **404** - Resource not found
+        

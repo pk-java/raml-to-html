@@ -1,0 +1,43 @@
+#%RAML 0.8
+title: Member Manager List Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/reporting/{module_version}/accounts/{account_key}/cubes/{cube_name}/dimensions/{dimension_name}/members
+/List:
+  description:  This section will deals with example about how to get the list of all members of a dimension. Using this service we will get list of all the members of a dimension.
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key:
+          description: It is the Id of an account.
+          required: true
+          type: integer
+        cube_name:
+          description: It is the name of cube.
+          required: true
+        dimension_name:
+          description: It is the name of dimension.
+          required: true
+        filter:
+          description: It is a condition that the data must meet.
+          required: true
+      body:
+       application/json:
+        example: |
+              curl -i -H "Accept: application/json" "http://turbjb01.realads.com:8080/modules/reporting/2.0.0/accounts/1/cubes/Advertisers/dimensions/AdvertiserStatus/members?filter=I&token=e9b43637-56de-48ff-ab05-d67af0f6def7"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                "members" : [ "I" ]
+                }              
+          description: OK - The request has succeeded. 
+        401:
+          description: Unauthorized request.
+        404:
+          description: Resource not found.

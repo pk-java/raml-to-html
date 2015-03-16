@@ -1,0 +1,43 @@
+#%RAML 0.8
+title: Modeling Update Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/model_upload/{module_version}/accounts/{account_key}/models/{model_key}
+/Update:
+  description: This section will deals about how to a update model of the turbine system. An existing model can be updated by the UI or the REST API. The file used for updating in this example is Demographic_model.json shown in the request example.
+
+  put:
+      description: PUT request, requires UPDATE privilege. The json in demographic_model.json file used while updating the model is shown in request example. A parameter **export_prefix** in this json files will be used when exporting segments. This is an optional parameter, if it is not provided when a model is updated, the previous value will be used.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key:
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+        Model_key:
+          description: The model_key is the id of model.
+      body:       
+        application/json:
+         example: |
+            curl -v -X PUT -H "Accept: application/json" -d @demographic_model.json -D -H "http://localhost:8080/modules/model_upload/1.0.30/accounts/1/models/1b220a6b-0439-4bcd-b73c-660b2e1a05fc?token=bff5acd6-45ae-480a-8205-6b9c5e89a263" -H "Content-Type: application/json" 
+                 
+              demographic_model.json
+              {         
+              "name" : "Demographic1",
+              "export_prefix": "TRB_XYZ",
+              "description" : "Model description",
+              "validFrom" : "2013-11-25T09:07Z",
+              "validTo" : "2013-11-26T09:07Z",
+              "isActive" : true,
+              "modelType" : "DEMOGRAPHIC"
+                  } 
+           
+      responses:
+        200:
+          description: OK - The request has succeeded
+        401:
+          description: Unauthorized request
+        404: 
+          description: Resource not found

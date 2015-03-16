@@ -1,0 +1,22 @@
+#%RAML 0.8
+title: Campaign Services
+version: 1
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts/{account_key}/advertisers/{advertiser_key}/campaigns
+documentation:
+ - title: Campaign services
+   content: |
+    Campaign service deals with operations related to campaign, like add/update/delete/get/list based on the privilege level user.
+      
+    Following operation can be done on the campaign service.
+        
+      **List ( Listing down all the campaigns associated with the user)**
+        
+      **Get (To list down a particular campaign by passing the campaign key)**
+        
+      **Add (Using this operation user can add a new campaign to the system)**
+        
+      **Update (Using this operation user can update a particular campaign)**
+        
+      **Delete (Using this operation user can delete a particular campaign)**
+        
+      **Execute (Using this operation use can activate/deactivate the campaign)**

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet"
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="http://yandex.st/highlightjs/8.0/styles/github.min.css">
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	function hideUnhide(){
+		$('#listDiv li').next("ul").hide();
+		$('#listDiv li').click(function(){
+			$(this).next("ul").toggle();
+		});
+	}
+	</script>
+
+</head>
+<body onload="hideUnhide()">
+
+	<div id="listDiv" class="hidden-print affix">
+		<ul class="nav nav-pills nav-stacked">
+			<li><a href="html/Introduction.html" target="content">Introduction</a></li>
+			<li><a href="html/auth.html" target="content">Authentication
+					Services</a></li>
+			<ul>
+				<li><a href="html/Authentication_Services.html"
+					target="content">Authentication Service</a></li>
+				<li><a href="html/Logout_Services.html" target="content">Logout
+						Service</a></li>
+			</ul>
+			<li><a href="html/Modeling.html" target="content">Modeling</a></li>
+			<ul>
+				<li><a href="html/Model_Services.html" target="content">Modeling
+						Services</a></li>
+				<ul>
+					<li><a href="html/Model_List.html" target="content">List</a></li>
+					<li><a href="html/Model_Get.html" target="content">Get</a></li>
+					<li><a href="html/Model_Add.html" target="content">Add</a></li>
+					<li><a href="html/Model_Update.html" target="content">Update</a></li>
+					<li><a href="html/Model_Delete.html" target="content">Delete</a></li>
+				</ul>
+				<li><a href="html/Model_Instance_Services.html"
+					target="content">Model Instance Services</a></li>
+				<ul>
+					<li><a href="html/Model_Instance_List.html" target="content">List</a></li>
+					<li><a href="html/Model_Instance_Get.html" target="content">Get</a></li>
+					<li><a href="html/Model_Instance_Get_Pmml.html"
+						target="content">Get PMML</a></li>
+					<li><a href="html/Model_Instance_Add.html" target="content">Add</a></li>
+					<li><a href="html/Model_Instance_Update.html" target="content">Update</a></li>
+					<li><a href="html/Model_Instance_Activation.html"
+						target="content">Activation</a></li>
+					<li><a href="html/Model_Instance_Delete.html" target="content">Delete</a></li>
+				</ul>
+				<li><a href="html/Automatic_Model_Generation.html"
+					target="content">Automatic Model Generation Service</a></li>
+				<ul>
+					<li><a href="html/Automatic_Execute.html" target="content">Execute</a></li>
+				</ul>
+				<li><a href="html/Bulk_Scoring.html" target="content">Bulk
+						Scoring Service</a></li>
+				<ul>
+					<li><a href="html/Bulk_Execute.html" target="content">Execute</a></li>
+				</ul>
+				<li><a href="html/Iab_Services.html" target="content">Iab's
+						Services</a></li>
+				<ul>
+					<li><a href="html/Iab_List.html" target="content">List</a></li>
+					<li><a href="html/Iab_Get.html" target="content">Get</a></li>
+				</ul>
+			</ul>
+			<li><a href="html/Reporting.html" target="content">Reporting</a></li>
+			<ul>
+				<li><a href="html/Cube_Manager.html" target="content">Cube
+						Manager Services</a></li>
+				<ul>
+					<li><a href="html/Cube_List.html" target="content">List</a></li>
+					<li><a href="html/Cube_Get.html" target="content">Get</a></li>
+				</ul>
+				<li><a href="html/Member_Manager.html" target="content">Member
+						Manager Services</a></li>
+				<ul>
+					<li><a href="html/Member_List.html" target="content">List</a></li>
+				</ul>
+				<li><a href="html/Query_Manager.html" target="content">Query
+						Manager Services</a></li>
+				<ul>
+					<li><a href="html/Query_List.html" target="content">List</a></li>
+					<li><a href="html/Query_Execute.html" target="content">Execute</a></li>
+				</ul>
+			</ul>
+			<li><a href="html/Targeting_Maps.html" target="content">Targeting
+					Maps</a></li>
+			<li><a href="html/Account_Manager.html" target="content">Account
+					Manager</a></li>
+			<ul>
+				<li><a href="html/Account_Services.html" target="content">Account
+						Services</a></li>
+				<ul>
+					<li><a href="html/Account_List.html" target="content">List</a></li>
+					<li><a href="html/Account_Get.html" target="content">Get</a></li>
+					<li><a href="html/Account_Add.html" target="content">Add</a></li>
+					<li><a href="html/Account_Update.html" target="content">Update</a></li>
+					<li><a href="html/Account_Delete.html" target="content">Delete</a></li>
+					<li><a href="html/Account_Activate_Inactivate.html"
+						target="content">Activate or Inactivate</a></li>
+				</ul>
+				<li><a href="html/Advertiser_Services.html" target="content">Advertiser
+						Services</a></li>
+				<ul>
+					<li><a href="html/Advertiser_List.html" target="content">List</a></li>
+					<li><a href="html/Advertiser_Get.html" target="content">Get</a></li>
+					<li><a href="html/Advertiser_Add.html" target="content">Add</a></li>
+					<li><a href="html/Advertiser_Update.html" target="content">Update</a></li>
+					<li><a href="html/Advertiser_Delete.html" target="content">Delete</a></li>
+					<li><a href="html/Advertiser_Activate_Inactivate.html"
+						target="content">Activate or Inactivate</a></li>
+				</ul>
+				<li><a href="html/Campaign_Services.html" target="content">Campaign
+						Services</a></li>
+				<ul>
+					<li><a href="html/Campaign_List.html" target="content">List</a></li>
+					<li><a href="html/Campaign_Get.html" target="content">Get</a></li>
+					<li><a href="html/Campaign_Add.html" target="content">Add</a></li>
+					<li><a href="html/Campaign_Update.html" target="content">Update</a></li>
+					<li><a href="html/Campaign_Delete.html" target="content">Delete</a></li>
+					<li><a href="html/Campaign_Inactivate.html" target="content">Inactivate</a></li>
+					<li><a href="html/Campaign_Activate.html" target="content">Activate</a></li>
+				</ul>
+				<li><a href="html/User_Services.html" target="content">User
+						Services</a></li>
+				<ul>
+					<li><a href="html/User_List.html" target="content">List</a></li>
+					<li><a href="html/User_Get.html" target="content">Get</a></li>
+					<li><a href="html/User_Add.html" target="content">Add</a></li>
+					<li><a href="html/User_Update.html" target="content">Update</a></li>
+					<li><a href="html/User_Delete.html" target="content">Delete</a></li>
+					<li><a href="html/User_Activate_Inactivate.html"
+						target="content">Activate</a></li>
+					<li><a href="html/User_Change_Password.html" target="content">Change
+							Password</a></li>
+					<li><a href="html/User_Entity_Access.html" target="content">Entity
+							Access List</a></li>
+					<li><a href="html/User_Type.html" target="content">User
+							Type</a></li>
+				</ul>
+				<li><a href="html/Activity_Services.html" target="content">Activity
+						Services</a></li>
+				<ul>
+					<li><a href="html/Activity_List.html" target="content">List</a></li>
+					<li><a href="html/Activity_Get.html" target="content">Get</a></li>
+					<li><a href="html/Activity_Add.html" target="content">Add</a></li>
+					<li><a href="html/Activity_Update.html" target="content">Update</a></li>
+					<li><a href="html/Activity_Delete.html" target="content">Delete</a></li>
+				</ul>
+				<li><a href="html/Activity_Custom_Variables.html"
+					target="content">Activity Custom Variables Services</a></li>
+				<ul>
+					<li><a href="html/Activity_Custom_Variables_List.html"
+						target="content">List</a></li>
+				</ul>
+				<li><a href="html/Event_Services.html" target="content">Event
+						Services</a></li>
+				<ul>
+					<li><a href="html/Event_List.html" target="content">List</a></li>
+					<li><a href="html/Event_Get.html" target="content">Get</a></li>
+					<li><a href="html/Event_Add.html" target="content">Add</a></li>
+					<li><a href="html/Event_Update.html" target="content">Update</a></li>
+					<li><a href="html/Event_Delete.html" target="content">Delete</a></li>
+				</ul>
+			</ul>
+			<li><a href="html/Glossary.html" target="content">Glossary</a></li>
+		</ul>
+	</div>
+
+
+</body>
+
+<style>
+.parent {
+	color: #999;
+}
+
+.list-group-item>.badge {
+	float: none;
+	margin-right: 6px;
+}
+
+.panel-title>.block>.badge {
+	float: right;
+	margin-left: 5px;
+}
+
+.badge {
+	border-radius: 0;
+	text-transform: uppercase;
+	width: 60px;
+	font-weight: normal;
+	color: #f3f3f6;
+	line-height: normal;
+}
+
+.block .badge {
+	visibility: hidden;
+}
+
+.block.collapsed .badge {
+	visibility: visible;
+}
+
+.badge_get {
+	background-color: #63a8e2;
+}
+
+.badge_post {
+	background-color: #6cbd7d;
+}
+
+.badge_put {
+	background-color: #22bac4;
+}
+
+.badge_delete {
+	background-color: #d26460;
+}
+
+.block {
+	display: block;
+}
+
+.list-group,.panel-group {
+	margin-bottom: 0;
+}
+
+.panel-group .panel+.panel-white {
+	margin-top: 0;
+}
+
+.panel-group .panel-white {
+	border-bottom: 1px solid #F5F5F5;
+	border-radius: 0;
+}
+
+.panel-white:last-child {
+	border-bottom-color: white;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.panel-white .panel-heading {
+	background: white;
+}
+
+.tab-pane ul {
+	padding-left: 2em;
+}
+
+.tab-pane h2 {
+	font-size: 1.2em;
+	padding-bottom: 4px;
+	border-bottom: 1px solid #ddd;
+}
+
+.tab-pane h3 {
+	font-size: 1.1em;
+}
+
+.tab-content {
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-bottom: 0px solid #ddd;
+	padding: 1px;
+}
+
+#sidebar {
+	margin-top: 30px;
+}
+
+.resource-description {
+	border-bottom: 1px solid #ddd;
+	background: #fcfcfc;
+	padding: 15px 15px 0 15px;
+	margin: -15px -15px 10px -15px;
+}
+</style>
+</html>

@@ -1,0 +1,48 @@
+#%RAML 0.8
+title: Account Update Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts/{account_key}
+/Update:
+  description: This section deals about how to a update an account of the turbine system.
+  put:
+      description: PUT request, requires UPDATE privilege. Update_account.json file used for updating account is shown in the request example.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key:
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+        name:
+          description: The name of the account while creating the account.
+          required: true
+        notes:
+          description: The description about the account can be given in notes.
+          required: false
+      body:       
+        application/json:
+         example: |
+            curl  -X PUT -H "Accept: application/json" -H "Content-Type: application/json" -d @account_json.txt "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts/20?token=12472945-d02d-4804-bff5-67c2b597a998"
+            
+              account_json.txt
+                      
+              {
+            "name": "account_json_update",
+            "status": "A",
+            "timeZoneKey": 2,
+            "domain": "abc.test.com",
+            "countryCode": "US"
+              }  
+           
+      responses:
+        200:
+          body:
+            application/json:
+          description: OK - The request has succeeded
+        401:
+          description: Unauthorized request
+        404: 
+          description: Resource not found
+  

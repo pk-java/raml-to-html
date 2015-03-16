@@ -1,0 +1,59 @@
+#%RAML 0.8
+title: Cube Manager Get Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/reporting/{module_version}/accounts/{account_key}/cubes/{cube_name}
+/Get:
+  description: This section will deals about how to get a particular cube of an account. Using this service, we can get specific cube details.  
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key:
+          description: It is the Id if an account.
+          required: true
+          type: integer
+        cube_name:
+          description: It is the name of cube.
+          required: true
+      body:
+       application/json:
+        example: |
+              curl -i -H "Accept: application/json" "http://turbjb01.realads.com:8080/modules/reporting/2.0.0/accounts/1/cubes/Advertisers?token=e9b43637-56de-48ff-ab05-d67af0f6def7"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                      "name" : "Advertisers",
+                      "cubeTypes" : [ "SNAPSHOT" ],
+                      "isAggregationCube" : false,
+                      "metrics" : 
+                      [ 
+                      {
+                      "name" : "AdvertiserCount",
+                      "description" : "Number of advertisers",
+                      "valueType" : "INTEGER",
+                      "conditionTypes" : [ "EQUALS", "NOT_EQUALS", "LESS_OR_EQUAL_THAN", "MORE_OR_EQUAL_THAN" ]
+                      } 
+                      ],
+                      "dimensions" : 
+                      [ 
+                      {
+                      "name" : "AdvertiserStatus",
+                      "description" : "Status of the advertiser",
+                      "valueType" : "CHAR",
+                      "conditionTypes" : [ "EQUALS", "NOT_EQUALS" ]
+                      }, 
+                      {
+                      "name" : "CreationDay",
+                      "description" : "Day when advertiser was created",
+                      "valueType" : "DATE",
+                      "conditionTypes" : [ "EQUALS", "NOT_EQUALS", "BEFORE", "AFTER" ]
+                      } 
+                      ]
+                      }
+          description: OK - The request has succeeded. 

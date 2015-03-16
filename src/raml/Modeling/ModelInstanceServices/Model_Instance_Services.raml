@@ -1,0 +1,20 @@
+#%RAML 0.8
+title: Model Instance Services
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/model_upload/{module_version}/accounts/{account_key}/models/{model_key}/instances/{modelInstanceVersion}
+documentation:
+ - title: Model Instance Services
+   content: |
+    Model instance service deals with operations related to Model instance, like add/update/delete/get/list based on the privilege level user.
+    
+    **List ( Listing down all the model instance associated with the user)**    
+    
+    **Get (To list down a particular model instance by passing the model key)**    
+    
+    **Add (Using this operation user can add a new model instance to the system)**  
+    
+    **Update (Using this operation user can update a particular model instance)**     
+    
+    **Delete (Using this operation user can delete a particular model instance)**
+    

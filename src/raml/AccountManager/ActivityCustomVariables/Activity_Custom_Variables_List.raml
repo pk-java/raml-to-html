@@ -1,0 +1,162 @@
+#%RAML 0.8
+title: Activity Custom Variables List Service
+version: V1
+#baseUri: http://ServerName:ServerPort/registry/{module_name}/{module_version}
+baseUri: http://localhost:8080/registry/account_manager/{module_version}/accounts/{account_key}/customVariables
+/List:
+  description: This section will deals with example about how to get the list of custom variables belongs to accounts. 
+  
+  get:
+      description: GET request, requires READ privilege.
+      queryParameters: 
+        token: 
+          description: The token that was given in response to authentication request. It consists of 32 alphanumeric characters.
+          required: true
+        account_key: 
+          description: The account_key is the id of account.
+          required: true
+          type: integer
+        activityName:
+          description: The activityName this is the name of the activity.
+          required: true
+        activity_key:
+          description: The activityKey this is the ID of the activity.
+          required: true
+          type: integer
+        advertiser_key:
+          description: The advertiserKey it filters out the custom variables to scope “advertisers” and show the custom variables associated with the given advertiser key.
+          required: true
+          type: integer
+        scope:
+          description: The scope it tells the system to provide the custom variables e.g. if scope is “accounts” it means give me all the custom variables which belongs to this account.
+          required: true
+      body:
+       application/json:
+        example: |
+            To get list of cuatom variables:
+              
+              curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts/2/ customVariables?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0"  
+              
+              To get list of all the custom variables belongs to the accounts and advertiser: 
+              
+              curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts/2/ customVariables?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0&advertiserKey=5&scope=advertisers"   
+              
+              To get list of all the custom variables belongs to the accounts and activity:
+              
+              curl  -H "Accept: application/json" "http://127.0.0.1:8080/modules/account_manager/1.0.0/accounts/2/ customVariables?token=6afce4bf-e919-4b05-ab7b-5f6418cfcfb0&activityKey=3&scope=activity"
+                       
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                List of Custome Variables:
+                
+                {
+                    "activityCustom": [
+                        {
+                            "accountKey": 2,
+                            "activityKey": 3,
+                            "activityName": "activity 1",
+                            "variableId": "1",
+                            "variableName": "dsaf",
+                            "dataTypeKey": 2,
+                            "value": "123",
+                            "id": 1
+                        },
+                        {
+                            "accountKey": 2,
+                            "advertiserKey": 5,
+                            "activityKey": 6,
+                            "activityName": "activity 2",
+                            "variableId": "2",
+                            "variableName": "dsaf",
+                            "dataTypeKey": 2,
+                            "value": "12",
+                            "id": 3
+                        },
+                        {
+                            "accountKey": 2,
+                            "advertiserKey": 5,
+                            "activityKey": 6,
+                            "activityName": "activity 2",
+                            "variableId": "1",
+                            "variableName": "dsaf",
+                            "dataTypeKey": 2,
+                            "value": "1",
+                            "id": 2
+                        },
+                        {
+                            "accountKey": 2,
+                            "advertiserKey": 5,
+                            "activityKey": 6,
+                            "activityName": "activity 2",
+                            "variableId": "3",
+                            "variableName": "dsaf",
+                            "dataTypeKey": 2,
+                            "value": "123",
+                            "id": 4
+                        }
+                    ],
+                    "totalRows": 4
+                }
+                
+                List all the custom variables belongs to the accounts and advertiser:
+                
+                {
+                  "activityCustom": [
+                      {
+                          "accountKey": 2,
+                          "advertiserKey": 5,
+                          "activityKey": 6,
+                          "activityName": "activity 2",
+                          "variableId": "1",
+                          "variableName": "dsaf",
+                          "dataTypeKey": 2,
+                          "value": "1",
+                          "id": 2
+                      },
+                      {
+                          "accountKey": 2,
+                          "advertiserKey": 5,
+                          "activityKey": 6,
+                          "activityName": "activity 2",
+                          "variableId": "3",
+                          "variableName": "dsaf",
+                          "dataTypeKey": 2,
+                          "value": "123",
+                          "id": 4
+                      },
+                      {
+                          "accountKey": 2,
+                          "advertiserKey": 5,
+                          "activityKey": 6,
+                          "activityName": "activity 2",
+                          "variableId": "2",
+                          "variableName": "dsaf",
+                          "dataTypeKey": 2,
+                          "value": "12",
+                          "id": 3
+                      }
+                  ],
+                  "totalRows": 3
+                }
+                
+                List all the custom variables belongs to the accounts and activity:
+                
+                {
+                  "activityCustom": [
+                      {
+                          "accountKey": 2,
+                          "activityKey": 3,
+                          "activityName": "activity 1",
+                          "variableId": "1",
+                          "variableName": "dsaf",
+                          "dataTypeKey": 2,
+                          "value": "123",
+                          "id": 1
+                      }
+                  ],
+                  "totalRows": 1
+                }
+          description: OK - The request has succeeded. 
